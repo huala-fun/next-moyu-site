@@ -9,12 +9,10 @@ import {
   format,
   parseISO,
   intervalToDuration,
-  formatDuration,
 } from "date-fns";
-import { zhCN } from "date-fns/locale";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
 import { DateTimePicker } from "@/components/time-picker";
+import { CardItem } from "@/components/countdown";
 
 interface CaculateDate {
   duration: string;
@@ -176,6 +174,8 @@ export default function ProfileForm() {
                 </CardContent>
               </Card>
             )}
+
+            <CardItem />
           </div>
         </TabsContent>
       </Tabs>
