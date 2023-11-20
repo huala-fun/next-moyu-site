@@ -1,6 +1,5 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DatePicker } from "@/components/ui/date-picker";
 import { useEffect, useState } from "react";
 import {
   differenceInCalendarDays,
@@ -15,6 +14,7 @@ import {
 import { zhCN } from "date-fns/locale";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import { DateTimePicker } from "@/components/time-picker";
 
 interface CaculateDate {
   duration: string;
@@ -61,11 +61,32 @@ export default function ProfileForm() {
     if (date) {
       d = setInterval(() => {
         const currentDate = new Date(); // 当前日期时间
-        const targetDate = parseISO(format(date, "yyyy-MM-dd")); // 指定的目标日期时间
+        const targetDate = parseISO(format(date, "yyyy-MM-dd HH:mm:ss")); // 指定的目标日期时间
         const days = differenceInCalendarDays(targetDate, currentDate);
         const hours = differenceInHours(targetDate, currentDate);
         const minutes = differenceInMinutes(targetDate, currentDate);
         const seconds = differenceInSeconds(targetDate, currentDate);
+
+        if (seconds < 0) {
+          setCaculateDate(() => {
+            return {
+              duration: formatDuration({
+                years: 0,
+                months: 0,
+                days: 0,
+                hours: 0,
+                minutes: 0,
+                seconds: 0,
+              }),
+              days: 0,
+              hours: 0,
+              minutes: 0,
+              seconds: 0,
+            };
+          });
+          return;
+        }
+
         const duration = intervalToDuration({
           start: currentDate,
           end: targetDate,
@@ -81,6 +102,8 @@ export default function ProfileForm() {
           return res;
         });
       }, 1000);
+    } else {
+      setDate(new Date());
     }
     return () => {
       clearInterval(d);
@@ -100,15 +123,19 @@ export default function ProfileForm() {
                 <CardTitle>设置</CardTitle>
               </CardHeader>
               <CardContent>
-                截止日期：{" "}
-                <DatePicker
+                截止日期：
+                <DateTimePicker
+                  placeholder="选择截止日期"
+                  disabled={(date) => {
+                    const nowDate = new Date();
+                    nowDate.setDate(nowDate.getDate() - 1);
+                    return date && date <= nowDate;
+                  }}
                   date={date}
                   setDate={setDate}
-                  showOutsideDays={false}
-                />{" "}
+                />
               </CardContent>
             </Card>
-
             {date && (
               <Card className="w-1/2 h-1/2  max-md:w-full max-md:h-full">
                 <CardHeader>
