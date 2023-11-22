@@ -23,6 +23,6 @@ export default async function BiliBiliRank() {
     name: "BiliBili热搜",
     data: data,
     source: "bilibili",
-    id: 1,
+    id: 3,
   };
 }

@@ -1,9 +1,8 @@
 interface RankItem {
-  id: string;
-  title: string;
-  link: string;
-  heat: string;
-  heatType?: "img" | "text";
+  id: any;
+  title: any;
+  link: any;
+  heat: any;
 }
 
 interface Rank {
