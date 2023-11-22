@@ -19,7 +19,7 @@ export default async function WeiboRank() {
     data.push({
       id: `weibo_${rank + 1}`,
       title: word,
-      link: `https://s.weibo.com/weibo?q${word_scheme}`,
+      link: `https://s.weibo.com/weibo?q=${word_scheme}`,
       heat: `${(raw_hot / 10000).toFixed(2)}  万`,
     });
   });
