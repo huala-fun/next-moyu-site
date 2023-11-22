@@ -23,7 +23,7 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          <main className="p-4">{children}</main>
+          <main className="p-4 h-full relative">{children}</main>
           <Background />
         </ThemeProvider>
       </body>

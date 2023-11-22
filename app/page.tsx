@@ -5,9 +5,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
+
+import { Calendar } from "@/components/ui/calendar";
+import { zhCN } from "date-fns/locale";
+
 export default function HotRank() {
   const [hotRankData, setHotRankData] = useState<Rank[]>([]);
-
+  const [date, setDate] = useState<Date | undefined>(new Date());
   useEffect(() => {
     fetch("/api/hot-rank")
       .then((res) => res.json())
@@ -19,51 +23,64 @@ export default function HotRank() {
   }, []);
 
   return (
-    <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-      {hotRankData.map((item) => (
-        <Card key={item.id}>
-          <CardHeader className="p-4 pb-2">
-            <CardTitle className="flex gap-2 items-center">
-              <Image
-                src={`/${item.source}.ico`}
-                alt=""
-                width={20}
-                height={20}
-              />
-              <span> {item.name}</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-4 pr-2 pt-2">
-            <ScrollArea className="h-[300px] pr-4">
-              <ul>
-                {item.data.map((item, index) => (
-                  <Link key={item.id} href={item.link} target="_blank">
-                    <li className="flex gap-1 justify-between hover:bg-gray-200 hover:rounded-sm px-1 hover:cursor-pointer">
-                      <div className="inline-flex gap-1">
-                        <span
-                          className={cn(
-                            "flex-shrink-0 text-sm",
-                            index === 0
-                              ? "text-red-500"
-                              : index === 1
-                              ? "text-orange-500"
-                              : index === 2
-                              ? "text-yellow-500"
-                              : ""
-                          )}>
-                          {index + 1}.
+    <div className="flex justify-between gap-2  overflow-y-auto">
+      <div className="grid flex-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2">
+        {hotRankData.map((item) => (
+          <Card key={item.id}>
+            <CardHeader className="p-4 pb-2">
+              <CardTitle className="flex gap-2 items-center">
+                <Image
+                  src={`/${item.source}.ico`}
+                  alt=""
+                  width={20}
+                  height={20}
+                />
+                <span> {item.name}</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-4 pr-2 pt-2">
+              <ScrollArea className="h-[300px] pr-4">
+                <ul>
+                  {item.data.map((item, index) => (
+                    <Link key={item.id} href={item.link} target="_blank">
+                      <li className="flex gap-1 justify-between hover:bg-gray-200 hover:rounded-sm px-1 hover:cursor-pointer">
+                        <div className="inline-flex gap-1">
+                          <span
+                            className={cn(
+                              "flex-shrink-0 text-sm",
+                              index === 0
+                                ? "text-red-500"
+                                : index === 1
+                                ? "text-orange-500"
+                                : index === 2
+                                ? "text-yellow-500"
+                                : ""
+                            )}>
+                            {index + 1}.
+                          </span>
+                          <span className="text-sm">{item.title}</span>
+                        </div>
+                        <span className="flex-shrink-0 text-xs">
+                          {item.heat}
                         </span>
-                        <span className="text-sm">{item.title}</span>
-                      </div>
-                      <span className="flex-shrink-0 text-xs">{item.heat}</span>
-                    </li>
-                  </Link>
-                ))}
-              </ul>
-            </ScrollArea>
-          </CardContent>
-        </Card>
-      ))}
+                      </li>
+                    </Link>
+                  ))}
+                </ul>
+              </ScrollArea>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+      <div className="sticky top-0 hidden lg:block">
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          className=" rounded-md border shadow w-[300px] flex justify-center"
+          locale={zhCN}
+        />
+      </div>
     </div>
   );
 }
