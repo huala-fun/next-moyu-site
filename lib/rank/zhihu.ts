@@ -25,6 +25,6 @@ export default async function ZhihuRank() {
     name: "知乎热榜",
     data: data,
     source: "zhihu",
-    id: 1,
+    id: 1
   };
 }

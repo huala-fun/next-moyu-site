@@ -1,12 +1,14 @@
 interface RankItem {
-  id: number;
+  id: string;
   title: string;
   link: string;
-  heat: number;
+  heat: string;
+  heatType?: "img" | "text";
 }
 
 interface Rank {
   id: number;
   name: string;
   data: RankItem[];
+  source: string;
 }
