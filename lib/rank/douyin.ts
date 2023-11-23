@@ -35,7 +35,7 @@ export default async function DouyinHotSearchRank() {
     name: "抖音热搜榜",
     data,
     source: "douyin",
-    id: 7,
+    id: 8,
     url: "https://www.douyin.com/discover",
   };
 }
