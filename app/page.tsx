@@ -51,7 +51,7 @@ export default function HotRank() {
 
   return (
     <div className="flex justify-between gap-2  overflow-y-auto">
-      <div className="grid flex-1 grid-cols-1 md:grid-cols-2  xl:grid-cols-3 gap-2">
+      <div className="grid flex-1 grid-cols-1 md:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-2">
         {hotRankData.map((item, index) => (
           <Card key={item.id}>
             <CardHeader className="p-4 pb-2">
@@ -62,7 +62,7 @@ export default function HotRank() {
                   width={20}
                   height={20}
                 />
-                <span> {item.name}</span>
+                <span className="dark:text-slate-400"> {item.name}</span>
                 <Button
                   variant="link"
                   size="icon"
@@ -77,7 +77,7 @@ export default function HotRank() {
                 <ul>
                   {item.data.map((item, index) => (
                     <Link key={item.id} href={item.link} target="_blank">
-                      <li className="flex gap-1 justify-between prose dark:prose-invert hover:bg-gray-200 dark:hover:bg-slate-600 hover:rounded-sm px-1 hover:cursor-pointer">
+                      <li className="flex gap-1 justify-between prose dark:prose-invert dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-slate-600 hover:rounded-sm px-1 hover:cursor-pointer">
                         <span className={cn("text-sm")}>
                           <span
                             className={

@@ -3,6 +3,9 @@ import WeiboRank from "./weibo";
 import BiliBiliRank from "./bilibili";
 import ToutiaoRank from "./toutiao";
 import BaiduRank from "./baidu";
+import HupuBuxinjieRank from "./hupu";
+import HuxiuRank from "./huxiu";
+import DouyinHotSearchRank from "./douyin";
 
 export const rankList = [
   ZhihuRank,
@@ -10,6 +13,9 @@ export const rankList = [
   BiliBiliRank,
   ToutiaoRank,
   BaiduRank,
+  HupuBuxinjieRank,
+  HuxiuRank,
+  DouyinHotSearchRank
 ];
 
 export async function AllRank() {
