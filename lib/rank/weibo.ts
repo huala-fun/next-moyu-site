@@ -29,5 +29,6 @@ export default async function WeiboRank() {
     data: data,
     source: "weibo",
     id: 2,
+    url: "https://weibo.com/hot/search",
   };
 }

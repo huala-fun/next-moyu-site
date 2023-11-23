@@ -1,4 +1,5 @@
 export default async function DouyinHotSearchRank() {
+  let data: RankItem[] = [];
   try {
     const headers = {
       "User-Agent":
@@ -17,7 +18,7 @@ export default async function DouyinHotSearchRank() {
 
     const list = [].concat.apply(json.data.word_list, trending_list);
 
-    const data = list.map((item: any, index: number) => {
+    data = list.map((item: any, index: number) => {
       const { word, sentence_id, hot_value, video_count } = item;
       return {
         id: `douyin_hot_search_${index + 1}`,
@@ -26,21 +27,15 @@ export default async function DouyinHotSearchRank() {
         heat: `${(hot_value / 10000).toFixed(2)} w / 视频数 ${video_count}`,
       };
     });
-
-    return {
-      name: "抖音热搜榜",
-      data: data,
-      source: "douyin",
-      id: 7,
-    };
   } catch (e) {
     console.log(e);
-
-    return {
-      name: "抖音热搜榜",
-      data: [],
-      source: "douyin",
-      id: 7,
-    };
   }
+
+  return {
+    name: "抖音热搜榜",
+    data,
+    source: "douyin",
+    id: 7,
+    url: "https://www.douyin.com/discover",
+  };
 }

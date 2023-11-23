@@ -32,5 +32,6 @@ export default async function BaiduRank() {
     data: data,
     source: "baidu",
     id: 5,
+    url: "https://top.baidu.com/board?tab=realtime",
   };
 }

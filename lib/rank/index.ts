@@ -8,11 +8,14 @@ import HuxiuRank from "./huxiu";
 import DouyinHotSearchRank from "./douyin";
 import PengpaiRank from "./pengpai";
 import AcfunRank from "./acfun";
+import QQNewsRank from "./qqnews";
+import SinaRank from "./sina";
 
 export const rankList = [
   AcfunRank,
   ZhihuRank,
   WeiboRank,
+  SinaRank,
   BiliBiliRank,
   ToutiaoRank,
   BaiduRank,
@@ -20,6 +23,7 @@ export const rankList = [
   HuxiuRank,
   DouyinHotSearchRank,
   PengpaiRank,
+  QQNewsRank
 ];
 
 export async function AllRank() {

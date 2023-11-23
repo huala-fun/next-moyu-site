@@ -15,7 +15,7 @@ export default async function PengpaiRank() {
     const json = await res.json();
     const hotNews = json.data.hotNews;
     data = hotNews.map((item: any, index: number) => {
-      const {  contId, name, pubTime } = item;
+      const { contId, name, pubTime } = item;
       return {
         id: `pengpai_hot_${index + 1}`,
         title: name,
@@ -32,5 +32,6 @@ export default async function PengpaiRank() {
     data,
     source: "pengpai",
     id: 9,
+    url: "https://www.thepaper.cn/",
   };
 }

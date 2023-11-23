@@ -66,7 +66,13 @@ export default function HotRank() {
                       width={20}
                       height={20}
                     />
-                    <span className="dark:text-slate-400"> {item.name}</span>
+                    {!item.url ? (
+                      <span className="dark:text-slate-400"> {item.name}</span>
+                    ) : (
+                      <Link target="_blank" href={item.url} className="dark:text-slate-400">
+                        {item.name}
+                      </Link>
+                    )}
                     <Button
                       variant="link"
                       size="icon"

@@ -27,5 +27,6 @@ export default async function HupuBuxinjieRank() {
     data,
     source: "hupu",
     id: 6,
+    url:"https://bbs.hupu.com/all-gambia"
   };
 }

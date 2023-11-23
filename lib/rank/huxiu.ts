@@ -26,5 +26,6 @@ export default async function HuxiuRank() {
     data: data,
     source: "huxiu",
     id: 7,
+    url:"https://www.huxiu.com/article/"
   };
 }

@@ -31,5 +31,6 @@ export default async function ToutiaoRank() {
     data: data,
     source: "toutiao",
     id: 4,
+    url:"https://www.toutiao.com/"
   };
 }

@@ -23,5 +23,6 @@ export default async function AcfunRank() {
     data,
     source: "acfun",
     id: 10,
+    url: "https://www.acfun.cn/rank/list?cid=-1&pcid=-1&range=THREE_DAYS",
   };
 }
