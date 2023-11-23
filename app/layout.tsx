@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Background from "@/components/background";
 import { ThemeProvider } from "@/components/theme-provider";
+import SliderTool from "@/components/slider-tool";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,8 +24,10 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          <main className="p-4 h-full relative pb-8">{children}</main>
+          <main className="container  p-4 sm:px-12">{children}</main>
           <Background />
+
+          <SliderTool />
         </ThemeProvider>
       </body>
     </html>
