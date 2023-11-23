@@ -10,7 +10,7 @@ export default async function WeiboRank() {
       id: `weibo_gov_${item.rank}`,
       title: item.word,
       link: item.url,
-      heat: item.icon_desc,
+      heat: "国家新闻",
     });
   });
 
@@ -20,7 +20,7 @@ export default async function WeiboRank() {
       id: `weibo_${rank + 1}`,
       title: word,
       link: `https://s.weibo.com/weibo?q=${word}`,
-      heat: `${(raw_hot / 10000).toFixed(2)}  万`,
+      heat: `${(raw_hot / 10000).toFixed(2)} w`,
     });
   });
 

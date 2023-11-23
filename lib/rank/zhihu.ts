@@ -18,7 +18,7 @@ export default async function ZhihuRank() {
       id,
       title,
       link,
-      heat: heat ? heat + " 万" : "累计中",
+      heat: heat ? heat + " w" : "累计中",
     };
   });
   return {

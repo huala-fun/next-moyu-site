@@ -40,8 +40,7 @@ export default function HotRank() {
                   variant="link"
                   size="icon"
                   className="ml-auto"
-                  onClick={() => {
-                  }}>
+                  onClick={() => {}}>
                   <UpdateIcon />
                 </Button>
               </CardTitle>
@@ -51,11 +50,10 @@ export default function HotRank() {
                 <ul>
                   {item.data.map((item, index) => (
                     <Link key={item.id} href={item.link} target="_blank">
-                      <li className="flex gap-1 justify-between hover:bg-gray-200 hover:rounded-sm px-1 hover:cursor-pointer">
-                        <div className="inline-flex gap-1">
+                      <li className="flex gap-1 justify-between prose dark:prose-invert hover:bg-gray-200 dark:hover:bg-slate-600 hover:rounded-sm px-1 hover:cursor-pointer">
+                        <span className={cn("text-sm")}>
                           <span
-                            className={cn(
-                              "flex-shrink-0 text-sm",
+                            className={
                               index === 0
                                 ? "text-red-500"
                                 : index === 1
@@ -63,12 +61,12 @@ export default function HotRank() {
                                 : index === 2
                                 ? "text-yellow-500"
                                 : ""
-                            )}>
-                            {index + 1}.
+                            }>
+                            {index + 1}. &nbsp;
                           </span>
-                          <span className="text-sm">{item.title}</span>
-                        </div>
-                        <span className="flex-shrink-0 text-xs">
+                           {item.title}
+                        </span>
+                        <span className="flex items-center flex-shrink-0 text-xs text-slate-400">
                           {item.heat}
                         </span>
                       </li>
@@ -80,9 +78,7 @@ export default function HotRank() {
           </Card>
         ))}
       </div>
-      <div className="sticky top-0 hidden lg:block">
-       
-      </div>
+      <div className="sticky top-0 hidden lg:block"></div>
     </div>
   );
 }

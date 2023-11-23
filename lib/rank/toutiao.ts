@@ -22,7 +22,7 @@ export default async function ToutiaoRank() {
       id: `toutiao_${index + 1}`,
       title: Title,
       link: Url,
-      heat: `${(HotValue / 10000).toFixed(2)}  万`,
+      heat: `${(HotValue / 10000).toFixed(2)} w`,
     });
   });
 
