@@ -4,6 +4,7 @@ import "./globals.css";
 import Background from "@/components/background";
 import { ThemeProvider } from "@/components/theme-provider";
 import SliderTool from "@/components/slider-tool";
+import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({
           <main className="container  p-4 sm:px-12">{children}</main>
           <Background />
           <SliderTool />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
