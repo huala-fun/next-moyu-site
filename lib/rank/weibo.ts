@@ -15,11 +15,11 @@ export default async function WeiboRank() {
   });
 
   realtime.forEach((item: any) => {
-    const { word_scheme, rank, word, raw_hot } = item;
+    const { rank, word, raw_hot } = item;
     data.push({
       id: `weibo_${rank + 1}`,
       title: word,
-      link: `https://s.weibo.com/weibo?q=${word_scheme}`,
+      link: `https://s.weibo.com/weibo?q=${word}`,
       heat: `${(raw_hot / 10000).toFixed(2)}  万`,
     });
   });
