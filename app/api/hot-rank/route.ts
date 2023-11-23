@@ -1,19 +1,12 @@
-import { WeiboRank, ZhihuRank } from "@/lib/rank";
-import BiliBiliRank from "@/lib/rank/bilibili";
-import ToutiaoRank from "@/lib/rank/toutiao";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { AllRank, Rank, rankList } from "@/lib/rank";
 
-export const GET = async () => {
-  const res = await ZhihuRank();
-
-  const weibo = await WeiboRank();
-
-  const bilibili = await BiliBiliRank();
-
-  const toutiao = await ToutiaoRank();
-
+export const GET = async (req: NextRequest) => {
+  const id = Number(req.nextUrl.searchParams.get("id"));
+  const data =
+    id >= 0 && id < rankList.length ? await Rank(id) : await AllRank();
   return NextResponse.json({
-    data: [res, weibo, bilibili, toutiao],
+    data,
     code: 1,
   });
 };

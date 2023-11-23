@@ -5,19 +5,19 @@ export default async function WeiboRank() {
 
   const data: RankItem[] = [];
 
-  hotgovs.forEach((item: any) => {
+  hotgovs.forEach((item: any, index: number) => {
     data.push({
-      id: `weibo_gov_${item.rank}`,
+      id: `weibo_gov_${index}`,
       title: item.word,
       link: item.url,
       heat: "国家新闻",
     });
   });
 
-  realtime.forEach((item: any) => {
+  realtime.forEach((item: any, index: number) => {
     const { rank, word, raw_hot } = item;
     data.push({
-      id: `weibo_${rank + 1}`,
+      id: `weibo_${index + 1}`,
       title: word,
       link: `https://s.weibo.com/weibo?q=${word}`,
       heat: `${(raw_hot / 10000).toFixed(2)} w`,

@@ -10,4 +10,5 @@ interface Rank {
   name: string;
   data: RankItem[];
   source: string;
+  refresh: boolean;
 }

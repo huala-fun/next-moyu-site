@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
@@ -11,9 +11,36 @@ import { UpdateIcon } from "@radix-ui/react-icons";
 
 export default function HotRank() {
   const [hotRankData, setHotRankData] = useState<Rank[]>([]);
+  const loading = useRef<boolean[]>([]);
+
+  const handleUpdateRankById = (id: number) => {
+    setHotRankData((prev) => {
+      const newState = [...prev];
+      newState[id].refresh = true;
+      return newState;
+    });
+    fetch("/api/hot-rank?id=" + id)
+      .then((res) => res.json())
+      .then(({ code = 0, data = [] }) => {
+        if (code == 1) {
+          setHotRankData((prev) => {
+            const newState = [...prev];
+            newState[id] = data;
+            return newState;
+          });
+        }
+      })
+      .finally(() => {
+        setHotRankData((prev) => {
+          const newState = [...prev];
+          newState[id].refresh = false;
+          return newState;
+        });
+      });
+  };
 
   useEffect(() => {
-    fetch("/api/hot-rank")
+    fetch("/api/hot-rank?id=-1")
       .then((res) => res.json())
       .then(({ code = 0, data = [] }) => {
         if (code === 1) {
@@ -25,7 +52,7 @@ export default function HotRank() {
   return (
     <div className="flex justify-between gap-2  overflow-y-auto">
       <div className="grid flex-1 grid-cols-1 md:grid-cols-2  xl:grid-cols-3 gap-2">
-        {hotRankData.map((item) => (
+        {hotRankData.map((item, index) => (
           <Card key={item.id}>
             <CardHeader className="p-4 pb-2">
               <CardTitle className="flex gap-2 items-center">
@@ -40,8 +67,8 @@ export default function HotRank() {
                   variant="link"
                   size="icon"
                   className="ml-auto"
-                  onClick={() => {}}>
-                  <UpdateIcon />
+                  onClick={() => handleUpdateRankById(index)}>
+                  <UpdateIcon className={item.refresh ? "animate-spin" : ""} />
                 </Button>
               </CardTitle>
             </CardHeader>
@@ -64,7 +91,7 @@ export default function HotRank() {
                             }>
                             {index + 1}. &nbsp;
                           </span>
-                           {item.title}
+                          {item.title}
                         </span>
                         <span className="flex items-center flex-shrink-0 text-xs text-slate-400">
                           {item.heat}

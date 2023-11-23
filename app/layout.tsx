@@ -26,7 +26,6 @@ export default function RootLayout({
           disableTransitionOnChange>
           <main className="container  p-4 sm:px-12">{children}</main>
           <Background />
-
           <SliderTool />
         </ThemeProvider>
       </body>
