@@ -1,0 +1,36 @@
+export default async function PengpaiRank() {
+  let data = [];
+  try {
+    const headers = {
+      "User-Agent":
+        "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Mobile Safari/537.36",
+    };
+    const res = await fetch(
+      "https://cache.thepaper.cn/contentapi/wwwIndex/rightSidebar",
+      {
+        method: "GET",
+        headers,
+      }
+    );
+    const json = await res.json();
+    const hotNews = json.data.hotNews;
+    data = hotNews.map((item: any, index: number) => {
+      const {  contId, name, pubTime } = item;
+      return {
+        id: `pengpai_hot_${index + 1}`,
+        title: name,
+        link: `https://www.thepaper.cn/newsDetail_forward_${contId}`,
+        heat: pubTime,
+      };
+    });
+  } catch (e) {
+    console.log(e);
+  }
+
+  return {
+    name: "澎湃热榜",
+    data,
+    source: "pengpai",
+    id: 9,
+  };
+}

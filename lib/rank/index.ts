@@ -6,6 +6,7 @@ import BaiduRank from "./baidu";
 import HupuBuxinjieRank from "./hupu";
 import HuxiuRank from "./huxiu";
 import DouyinHotSearchRank from "./douyin";
+import PengpaiRank from "./pengpai";
 
 export const rankList = [
   ZhihuRank,
@@ -15,7 +16,8 @@ export const rankList = [
   BaiduRank,
   HupuBuxinjieRank,
   HuxiuRank,
-  DouyinHotSearchRank
+  DouyinHotSearchRank,
+  PengpaiRank
 ];
 
 export async function AllRank() {
