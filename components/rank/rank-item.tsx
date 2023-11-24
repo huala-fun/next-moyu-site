@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { ScrollArea } from "../ui/scroll-area";
 import Link from "next/link";
 import { Button } from "../ui/button";
@@ -46,6 +46,10 @@ export default function RankView({
             <UpdateIcon className={rank.refresh ? "animate-spin" : ""} />
           </Button>
         </CardTitle>
+
+        <CardDescription>
+          {rank.desc}
+        </CardDescription>
       </CardHeader>
       <CardContent className="max-sm:flex w-full max-sm:flex-1 flex-col p-4 pr-2 pt-2 overflow-hidden">
         <ScrollArea className="max-sm:flex-1 sm:h-[300px] pr-4 w-full">

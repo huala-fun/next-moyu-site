@@ -13,4 +13,5 @@ interface Rank {
   refresh: boolean;
   url: string;
   isLoadData: boolean;
+  desc?: string;
 }

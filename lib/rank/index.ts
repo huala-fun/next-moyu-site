@@ -10,8 +10,10 @@ import * as PengpaiRank from "./pengpai";
 import * as AcFun from "./acfun";
 import * as QQNewsRank from "./qqnews";
 import * as SinaRank from "./sina";
+import * as PiyaoRank from "./piyao";
 
 export const rankList = [
+  PiyaoRank,
   AcFun,
   ZhihuRank,
   WeiboRank,
