@@ -1,5 +1,10 @@
-export default async function DouyinHotSearchRank() {
-  let data: RankItem[] = [];
+export const meta = {
+  name: "抖音热搜榜",
+  source: "douyin",
+  url: "https://www.douyin.com/discover",
+};
+
+export  async function Rank() {
   try {
     const headers = {
       "User-Agent":
@@ -18,7 +23,7 @@ export default async function DouyinHotSearchRank() {
 
     const list = [].concat.apply(json.data.word_list, trending_list);
 
-    data = list.map((item: any, index: number) => {
+    return list.map((item: any, index: number) => {
       const { word, sentence_id, hot_value, video_count } = item;
       return {
         id: `douyin_hot_search_${index + 1}`,
@@ -29,13 +34,6 @@ export default async function DouyinHotSearchRank() {
     });
   } catch (e) {
     console.log(e);
+    return [];
   }
-
-  return {
-    name: "抖音热搜榜",
-    data,
-    source: "douyin",
-    id: 8,
-    url: "https://www.douyin.com/discover",
-  };
 }

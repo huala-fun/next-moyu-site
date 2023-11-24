@@ -1,5 +1,10 @@
-export default async function PengpaiRank() {
-  let data = [];
+export const meta = {
+  name: "澎湃热榜",
+  source: "pengpai",
+  url: "https://www.thepaper.cn/",
+};
+
+export async function Rank() {
   try {
     const headers = {
       "User-Agent":
@@ -14,7 +19,7 @@ export default async function PengpaiRank() {
     );
     const json = await res.json();
     const hotNews = json.data.hotNews;
-    data = hotNews.map((item: any, index: number) => {
+    return hotNews.map((item: any, index: number) => {
       const { contId, name, pubTime } = item;
       return {
         id: `pengpai_hot_${index + 1}`,
@@ -25,13 +30,6 @@ export default async function PengpaiRank() {
     });
   } catch (e) {
     console.log(e);
+    return [];
   }
-
-  return {
-    name: "澎湃热榜",
-    data,
-    source: "pengpai",
-    id: 9,
-    url: "https://www.thepaper.cn/",
-  };
 }

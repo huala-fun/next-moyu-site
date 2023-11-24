@@ -12,4 +12,5 @@ interface Rank {
   source: string;
   refresh: boolean;
   url: string;
+  isLoadData: boolean;
 }

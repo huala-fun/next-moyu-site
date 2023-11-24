@@ -50,7 +50,7 @@ export default function RankView({
       <CardContent className="max-sm:flex w-full max-sm:flex-1 flex-col p-4 pr-2 pt-2 overflow-hidden">
         <ScrollArea className="max-sm:flex-1 sm:h-[300px] pr-4 w-full">
           <div className="w-full">
-            {rank.data.map((item, index) => (
+            {rank?.data?.map((item, index) => (
               <Link key={item.id} href={item.link} target="_blank">
                 <div className="flex gap-1 justify-between prose dark:prose-invert dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-slate-600 hover:rounded-sm px-1 hover:cursor-pointer">
                   <span className={cn("text-sm")}>

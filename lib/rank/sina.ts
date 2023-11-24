@@ -1,5 +1,10 @@
-export default async function SinaRank() {
-  let data = [];
+export const meta = {
+  name: "新浪热榜",
+  source: "weibo",
+  url: "https://sinanews.sina.cn/h5/top_news_list.d.html?localCityCode=CN44010000000000",
+};
+
+export async function Rank() {
   try {
     const res = await fetch(
       "https://newsapp.sina.cn/api/hotlist?newsId=HB-1-snhs%2Ftop_news_list-all"
@@ -7,7 +12,7 @@ export default async function SinaRank() {
     const json = await res.json();
 
     const hotList = json.data.hotList;
-    data = hotList.map((item: any, index: number) => {
+    return hotList.map((item: any, index: number) => {
       const {
         info,
         base: { base },
@@ -19,12 +24,7 @@ export default async function SinaRank() {
         heat: info.hotValue,
       };
     });
-  } catch (e) {}
-  return {
-    name: "新浪热榜",
-    data,
-    source: "weibo",
-    id: 12,
-    url: "https://sinanews.sina.cn/h5/top_news_list.d.html?localCityCode=CN44010000000000",
-  };
+  } catch (e) {
+    return [];
+  }
 }

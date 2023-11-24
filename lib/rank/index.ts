@@ -1,18 +1,18 @@
-import ZhihuRank from "./zhihu";
-import WeiboRank from "./weibo";
-import BiliBiliRank from "./bilibili";
-import ToutiaoRank from "./toutiao";
-import BaiduRank from "./baidu";
-import HupuBuxinjieRank from "./hupu";
-import HuxiuRank from "./huxiu";
-import DouyinHotSearchRank from "./douyin";
-import PengpaiRank from "./pengpai";
-import AcfunRank from "./acfun";
-import QQNewsRank from "./qqnews";
-import SinaRank from "./sina";
+import * as ZhihuRank from "./zhihu";
+import * as WeiboRank from "./weibo";
+import * as BiliBiliRank from "./bilibili";
+import * as ToutiaoRank from "./toutiao";
+import * as BaiduRank from "./baidu";
+import * as HupuBuxinjieRank from "./hupu";
+import * as HuxiuRank from "./huxiu";
+import * as DouyinHotSearchRank from "./douyin";
+import * as PengpaiRank from "./pengpai";
+import * as AcFun from "./acfun";
+import * as QQNewsRank from "./qqnews";
+import * as SinaRank from "./sina";
 
 export const rankList = [
-  AcfunRank,
+  AcFun,
   ZhihuRank,
   WeiboRank,
   SinaRank,
@@ -23,16 +23,16 @@ export const rankList = [
   HuxiuRank,
   DouyinHotSearchRank,
   PengpaiRank,
-  QQNewsRank
+  QQNewsRank,
 ];
 
 export async function AllRank() {
-  const data = await Promise.all(rankList.map((rank) => rank()));
+  const data = await Promise.all(rankList.map((rank) => rank.Rank()));
   return data;
 }
 
 export async function Rank(id: number) {
-  const data = await rankList[id]();
+  const data = await rankList[id].Rank();
   return data;
 }
 
