@@ -25,7 +25,7 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          <main className="p-0 h-full sm:min-h-screen sm:p-4">
+          <main className="p-0 max-sm:h-full sm:min-h-screen sm:py-8 sm:px-16">
             {children}
           </main>
           <Background />

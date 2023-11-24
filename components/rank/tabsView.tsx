@@ -16,12 +16,9 @@ export function TabsView({
   rankList: Rank[];
   setHotRankData: any;
 }) {
-  const tempList = Array.from({ length: 12 });
-
-  if (rankList.length == 0) {
-    return <RankSkeleton />;
-  }
-  return (
+  return rankList.length == 0 ? (
+    <RankSkeleton />
+  ) : (
     <Tabs
       defaultValue={rankList[0].name}
       className="h-full  flex-col flex  sm:hidden">

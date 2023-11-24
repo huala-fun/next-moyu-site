@@ -22,10 +22,10 @@ export default function RankView({
     <Card
       key={rank.id}
       className={cn(
-        "flex flex-col border-none rounded-none sm:rounded-md sm:border",
+        "flex flex-col max-sm:border-none max-sm:rounded-none",
         className
       )}>
-      <CardHeader className="p-4 pb-2">
+      <CardHeader className="p-4 pt-2 pb-2 border-b border-slate-200">
         <CardTitle className="flex gap-2 items-center">
           <Image src={`/${rank.source}.ico`} alt="" width={20} height={20} />
           {!rank.url ? (
