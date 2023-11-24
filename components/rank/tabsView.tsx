@@ -19,11 +19,7 @@ export function TabsView({
   const tempList = Array.from({ length: 12 });
 
   if (rankList.length == 0) {
-    return (
-      <div>
-        <RankSkeleton></RankSkeleton>
-      </div>
-    );
+    return <RankSkeleton />;
   }
   return (
     <Tabs
@@ -31,10 +27,9 @@ export function TabsView({
       className="h-full  flex-col flex  sm:hidden">
       <div className="m-0 flex-1 overflow-hidden">
         {rankList.map((item, index) => (
-          <TabsContent value={item.name} className="h-full m-0">
+          <TabsContent key={index} value={item.name} className="h-full m-0">
             <RankView
               className="h-full"
-              key={index}
               rank={item}
               index={index}
               setHotRankData={setHotRankData}
@@ -45,7 +40,9 @@ export function TabsView({
       <ScrollArea>
         <TabsList className="flex items-center h-12">
           {rankList.map((item, index) => (
-            <TabsTrigger value={item.name}>{item.name}</TabsTrigger>
+            <TabsTrigger key={index} value={item.name}>
+              {item.name}
+            </TabsTrigger>
           ))}
         </TabsList>
         <ScrollBar orientation="horizontal" />
