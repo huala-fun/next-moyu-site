@@ -4,7 +4,7 @@ import { ScrollArea } from "../ui/scroll-area";
 
 export function RankSkeleton() {
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader className="p-4 pb-2">
         <CardTitle className="flex gap-2 items-center justify-between">
           <div className="flex gap-2 items-center">
@@ -15,9 +15,9 @@ export function RankSkeleton() {
         </CardTitle>
       </CardHeader>
       <CardContent className="p-4 pr-2 pt-2">
-        <ScrollArea className="h-[300px] pr-4">
+        <ScrollArea className="h-full sm:h-[300px] pr-4">
           <ul className="flex flex-col gap-2">
-            {Array.from({ length: 20 }).map((item, index) => (
+            {Array.from({ length: 35 }).map((item, index) => (
               <Skeleton key={index} className="w-full h-4" />
             ))}
           </ul>
