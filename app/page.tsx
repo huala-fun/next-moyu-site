@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { TabsView } from "@/components/rank/tabsView";
 import { GridView } from "@/components/rank/grid-view";
 import { isMobile } from "react-device-detect";
-
+import Header from "@/components/home/header";
 
 const fetchHotRankMetaList = async () => {
   const res = await fetch("/api/hot-rank/list");
@@ -20,38 +20,9 @@ const fetchRankData = async (index: number) => {
 };
 
 export default function HotRank() {
-  const [hotRankData, setHotRankData] = useState<Rank[]>([]);
-  const [isLoadRankMeta, setIsLoadRankMeta] = useState<boolean>(false);
-
-  useEffect(() => {
-    const handleLoadRankData = async () => {
-      const initialData = await fetchHotRankMetaList();
-      setHotRankData(initialData);
-      setIsLoadRankMeta(true);
-    };
-    handleLoadRankData();
-  }, []);
-
-  useEffect(() => {
-    const fetchDataForAllRanks = async () => {
-      await Promise.all(
-        hotRankData.map(async (rank, index) => {
-          const data = await fetchRankData(index);
-          setHotRankData((prev) => {
-            const temp = [...prev];
-            temp[index].data = data;
-            temp[index].isLoadData = false;
-            return temp;
-          });
-        })
-      );
-    };
-    fetchDataForAllRanks();
-  }, [isLoadRankMeta]);
-
-  return isMobile ? (
-    <TabsView rankList={hotRankData} setHotRankData={setHotRankData} />
-  ) : (
-    <GridView rankList={hotRankData} setHotRankData={setHotRankData} />
+  return (
+    <div>
+      <Header />
+    </div>
   );
 }
