@@ -1,8 +1,4 @@
-"use client";
 import { useEffect, useState } from "react";
-import { TabsView } from "@/components/rank/tabsView";
-import { GridView } from "@/components/rank/grid-view";
-import { isMobile } from "react-device-detect";
 import Header from "@/components/home/header";
 import {
   Card,
@@ -13,26 +9,9 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import { rankList } from "@/lib/rank";
 
-const fetchHotRankMetaList = async () => {
-  const res = await fetch("/api/hot-rank/list");
-  const { code, data } = await res.json();
-  return code === 1
-    ? data.map((item: Rank) => ({ ...item, data: [], isLoadData: true }))
-    : [];
-};
-
-export default function HotRank() {
-  const [rankList, setRankList] = useState<Rank[]>([]);
-
-  useEffect(() => {
-    const handleLoadRankData = async () => {
-      const initialData = await fetchHotRankMetaList();
-      setRankList(initialData);
-    };
-    handleLoadRankData();
-  }, []);
-
+export default async function HotRank() {
   return (
     <div className="px-4 sm:px-64">
       <Header />
@@ -46,18 +25,18 @@ export default function HotRank() {
           </CardHeader>
           <CardContent>
             <div className="flex gap-2 flex-wrap">
-              {rankList.map((item) => {
+              {rankList.map(({ meta }, index) => {
                 return (
                   <div
-                    key={item.id}
+                    key={index}
                     className=" flex-shrink-0 flex gap-2 items-center">
                     <Image
-                      src={`/${item.source}.ico`}
+                      src={`/${meta.source}.ico`}
                       alt=""
                       width={20}
                       height={20}
                     />{" "}
-                    {item.name}
+                    {meta.name}
                   </div>
                 );
               })}
