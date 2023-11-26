@@ -16,16 +16,23 @@ export default function NavigationMenuDemo() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="/news" target="_blank" legacyBehavior passHref>
+          <Link href="/" target="_blank" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              首页
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href="/aggregation" target="_blank" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               新闻聚合
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
+          <Link href="https://2048.huala.fun/" target="_blank" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              接口文档
+              2048
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
