@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { TabsView } from "@/components/rank/tabsView";
+import { GridView } from "@/components/rank/grid-view";
 
 const fetchHotRankMetaList = async () => {
   const res = await fetch("/api/hot-rank/list");
@@ -46,5 +47,5 @@ export default function HotRank() {
     fetchDataForAllRanks();
   }, [isLoadRankMeta]);
 
-  return <TabsView rankList={hotRankData} setHotRankData={setHotRankData} />;
+  return <GridView rankList={hotRankData} setHotRankData={setHotRankData} />;
 }
