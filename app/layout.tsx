@@ -8,7 +8,7 @@ import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "忙里偷闲",
+  title: "热榜聚合 -  汇聚全网热点",
   description: "忙里偷闲",
 };
 
@@ -25,7 +25,7 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          <main className="p-0 max-sm:h-full sm:min-h-screen sm:py-8 sm:px-16">
+          <main className="py-8 px-4 sm:px-16">
             {children}
           </main>
           <Background />

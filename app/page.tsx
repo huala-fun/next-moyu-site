@@ -1,49 +1,57 @@
+"use client";
 import { useEffect, useState } from "react";
-import Header from "@/components/home/header";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import Image from "next/image";
-import Link from "next/link";
-import { rankList } from "@/lib/rank";
+import { TabsView } from "@/components/rank/tabsView";
+import { GridView } from "@/components/rank/grid-view";
+import { isMobile } from "react-device-detect";
 
-export default async function HotRank() {
-  return (
-    <div className="px-4 sm:px-64">
-      <Header />
-      <Link href="/aggregation" target="_blank">
-        <Card className="shadow-none mt-4">
-          <CardHeader>
-            <CardTitle>新闻聚合</CardTitle>
-            <CardDescription>
-              一共收录{rankList.length}个新闻网站
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex gap-2 flex-wrap">
-              {rankList.map(({ meta }, index) => {
-                return (
-                  <div
-                    key={index}
-                    className=" flex-shrink-0 flex gap-2 items-center">
-                    <Image
-                      src={`/${meta.source}.ico`}
-                      alt=""
-                      width={20}
-                      height={20}
-                    />{" "}
-                    {meta.name}
-                  </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
-      </Link>
-    </div>
+
+const fetchHotRankMetaList = async () => {
+  const res = await fetch("/api/hot-rank/list");
+  const { code, data } = await res.json();
+  return code === 1
+    ? data.map((item: Rank) => ({ ...item, data: [], isLoadData: true }))
+    : [];
+};
+
+const fetchRankData = async (index: number) => {
+  const res = await fetch(`/api/hot-rank?id=${index}`);
+  const { code, data } = await res.json();
+  return code === 1 ? data : [];
+};
+
+export default function HotRank() {
+  const [hotRankData, setHotRankData] = useState<Rank[]>([]);
+  const [isLoadRankMeta, setIsLoadRankMeta] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleLoadRankData = async () => {
+      const initialData = await fetchHotRankMetaList();
+      setHotRankData(initialData);
+      setIsLoadRankMeta(true);
+    };
+    handleLoadRankData();
+  }, []);
+
+  useEffect(() => {
+    const fetchDataForAllRanks = async () => {
+      await Promise.all(
+        hotRankData.map(async (rank, index) => {
+          const data = await fetchRankData(index);
+          setHotRankData((prev) => {
+            const temp = [...prev];
+            temp[index].data = data;
+            temp[index].isLoadData = false;
+            return temp;
+          });
+        })
+      );
+    };
+    fetchDataForAllRanks();
+  }, [isLoadRankMeta]);
+
+  return isMobile ? (
+    <TabsView rankList={hotRankData} setHotRankData={setHotRankData} />
+  ) : (
+    <GridView rankList={hotRankData} setHotRankData={setHotRankData} />
   );
 }
