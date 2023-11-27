@@ -12,8 +12,10 @@ import * as QQNewsRank from "./qqnews";
 import * as SinaRank from "./sina";
 import * as PiyaoRank from "./piyao";
 import * as TiebaRank from "./tieba";
+import * as HistoryTodayRank from "./today-history";
 
 export const rankList = [
+  HistoryTodayRank,
   AcFun,
   ZhihuRank,
   WeiboRank,
