@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import * as piyao from "@/lib/rank/piyao"
+import * as rank from "@/lib/rank/tieba"
 
 
 export const GET = async () => {
-  const res = await piyao.Rank();
+  const res = await rank.Rank();
 
   return NextResponse.json({
     data: res,

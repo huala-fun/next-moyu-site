@@ -1,9 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { TabsView } from "@/components/rank/tabsView";
-import { GridView } from "@/components/rank/grid-view";
-import { isMobile } from "react-device-detect";
-
 
 const fetchHotRankMetaList = async () => {
   const res = await fetch("/api/hot-rank/list");
@@ -49,9 +46,5 @@ export default function HotRank() {
     fetchDataForAllRanks();
   }, [isLoadRankMeta]);
 
-  return isMobile ? (
-    <TabsView rankList={hotRankData} setHotRankData={setHotRankData} />
-  ) : (
-    <GridView rankList={hotRankData} setHotRankData={setHotRankData} />
-  );
+  return <TabsView rankList={hotRankData} setHotRankData={setHotRankData} />;
 }

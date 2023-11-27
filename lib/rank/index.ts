@@ -11,6 +11,7 @@ import * as AcFun from "./acfun";
 import * as QQNewsRank from "./qqnews";
 import * as SinaRank from "./sina";
 import * as PiyaoRank from "./piyao";
+import * as TiebaRank from "./tieba";
 
 export const rankList = [
   PiyaoRank,
@@ -21,6 +22,7 @@ export const rankList = [
   BiliBiliRank,
   ToutiaoRank,
   BaiduRank,
+  TiebaRank,
   HupuBuxinjieRank,
   HuxiuRank,
   DouyinHotSearchRank,
