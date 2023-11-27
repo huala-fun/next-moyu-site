@@ -14,7 +14,6 @@ import * as PiyaoRank from "./piyao";
 import * as TiebaRank from "./tieba";
 
 export const rankList = [
-  PiyaoRank,
   AcFun,
   ZhihuRank,
   WeiboRank,
@@ -28,6 +27,7 @@ export const rankList = [
   DouyinHotSearchRank,
   PengpaiRank,
   QQNewsRank,
+  PiyaoRank
 ];
 
 export async function AllRank() {

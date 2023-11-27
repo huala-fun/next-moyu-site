@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { TabsView } from "@/components/rank/tabsView";
 import { GridView } from "@/components/rank/grid-view";
 
 const fetchHotRankMetaList = async () => {
