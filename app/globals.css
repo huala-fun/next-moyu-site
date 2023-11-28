@@ -58,7 +58,6 @@
   }
 }
 
-
 /* 通用滚动条样式，适用于所有滚动条 */
 *::-webkit-scrollbar {
   width: 4px !important;
@@ -87,15 +86,33 @@ body {
   background-image: radial-gradient(var(--tw-gradient-stops));
 }
 
-@keyframes rotate {
+@keyframes moveRight {
   0% {
-    transform: rotate(0deg);
+    transform: translateX(0);
   }
   100% {
-    transform: rotate(360deg);
+    transform: translateX(8px); /* 根据需要调整移动的距离 */
   }
 }
 
-.rotate-icon {
-  animation: rotate 2s linear infinite;
+.move-right-animate:hover {
+  animation: moveRight 0.3s ease-in-out forwards; /* 调整动画时间和缓动函数 */
+}
+
+@keyframes widthChange {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.move-right-animate:hover::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background-color: #888;
+  border-radius: 100%;
+  animation: widthChange 0.3s ease-in-out forwards;
 }
