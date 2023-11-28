@@ -3,8 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Background from "@/components/background";
 import { ThemeProvider } from "@/components/theme-provider";
-import SliderTool from "@/components/slider-tool";
 import { Analytics } from "@vercel/analytics/react";
+import StyledComponentsRegistry from "@/components/AntdRegistry";
+import { cn } from "@/lib/utils";
+import CustomConfigProvider from "@/components/config-provider";
+import SliderTool from "@/components/slider-tool";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,17 +22,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange>
-          <main className="py-8 px-[5vw]">{children}</main>
-          <Background />
-          <SliderTool />
-          <Analytics />
-        </ThemeProvider>
+      <body className={cn(inter.className)}>
+        <StyledComponentsRegistry>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange>
+            <CustomConfigProvider>
+              <main className="py-8 px-[5vw]">{children}</main>
+            </CustomConfigProvider>
+            <SliderTool />
+            <Background />
+            <Analytics />
+          </ThemeProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

@@ -1,40 +1,54 @@
-export default function Test() {
+"use client";
+import { useEffect, useState } from "react";
+import { GridView } from "@/components/rank/grid-view";
+
+const fetchHotRankMetaList = async () => {
+  const res = await fetch("/api/hot-rank/list");
+  const { code, data } = await res.json();
+  return code === 1
+    ? data.map((item: Rank) => ({ ...item, data: [], isLoadData: true }))
+    : [];
+};
+
+const fetchRankData = async (index: number) => {
+  const res = await fetch(`/api/hot-rank?id=${index}`);
+  const { code, data } = await res.json();
+  return code === 1 ? data : [];
+};
+
+export default function HotRank() {
+  const [hotRankData, setHotRankData] = useState<Rank[]>([]);
+  const [isLoadRankMeta, setIsLoadRankMeta] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleLoadRankData = async () => {
+      const initialData = await fetchHotRankMetaList();
+      setHotRankData(initialData);
+      setIsLoadRankMeta(true);
+    };
+    handleLoadRankData();
+  }, []);
+
+  useEffect(() => {
+    const fetchDataForAllRanks = async () => {
+      await Promise.all(
+        hotRankData.map(async (rank, index) => {
+          const data = await fetchRankData(index);
+          setHotRankData((prev) => {
+            const temp = [...prev];
+            temp[index].data = data;
+            temp[index].isLoadData = false;
+            return temp;
+          });
+        })
+      );
+    };
+    fetchDataForAllRanks();
+  }, [isLoadRankMeta]);
+
   return (
-    <nav className="bg-gray-500 p-4">
-      <div className="container mx-auto">
-        <div className="flex justify-between items-center">
-          <div className="text-white font-bold text-lg">
-            Your Brand Name here
-          </div>
-          <div className="hidden md:flex">
-            <a href="#" className="text-white mx-2">
-              Services
-            </a>
-            <a href="#" className="text-white mx-2">
-              Products
-            </a>
-            <a href="#" className="text-white mx-2">
-              Blog
-            </a>
-          </div>
-          <button className="md:hidden text-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              width="24"
-              height="24">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </nav>
+    <div className="2xl:container">
+      <GridView rankList={hotRankData} setHotRankData={setHotRankData} />
+    </div>
   );
 }

@@ -1,4 +1,7 @@
+import { message } from "antd";
+
 export const handleUpdateRankById = async (id: number, setHotRankData: any) => {
+
   try {
     setHotRankData((prev: any) => {
       const newState = [...prev];
@@ -13,6 +16,7 @@ export const handleUpdateRankById = async (id: number, setHotRankData: any) => {
         newState[id].data = data;
         return newState;
       });
+      message.success('刷新成功');
     }
   } finally {
     setHotRankData((prev: any) => {

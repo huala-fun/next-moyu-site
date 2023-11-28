@@ -1,51 +1,38 @@
 "use client";
-import { Calendar as CalendarIcon, MoonIcon, SunIcon } from "lucide-react";
+import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "../ui/hover-card";
-import { useState } from "react";
-import { Calendar } from "../ui/calendar";
-import { zhCN } from "date-fns/locale";
 import useHasMounted from "@/hook/use-has-mounted";
-import { Button } from "../ui/button";
+import { SettingOutlined } from "@ant-design/icons";
+import { FloatButton } from "antd";
 
-export default function SliderTool() {
+const App: React.FC = () => {
   const hasMounted = useHasMounted();
-  const [date, setDate] = useState<Date | undefined>(new Date());
   const { theme, setTheme } = useTheme();
+  if (!hasMounted) {
+    return null;
+  }
 
   return (
-    hasMounted && (
-      <div className="fixed right-1 top-1/2 flex  flex-col gap-2 ">
-        <Button size="icon" variant="outline">
-          {theme === "dark" ? (
-            <SunIcon onClick={() => setTheme("light")} />
-          ) : (
-            <MoonIcon onClick={() => setTheme("dark")} />
-          )}
-        </Button>
-        <HoverCard >
-          <HoverCardTrigger>
-            <Button size="icon" variant="outline" className="hidden md:flex">
-              <CalendarIcon />
-            </Button>
-          </HoverCardTrigger>
-          <HoverCardContent className="p-0">
-            <div>
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={setDate}
-                className="border-none"
-                locale={zhCN}
-              />
-            </div>
-          </HoverCardContent>
-        </HoverCard>
-      </div>
-    )
+    <FloatButton.Group type="primary" shape="circle" style={{ right: 24 }}>
+      <FloatButton.Group
+        style={{ right: 24, bottom: 96 }}
+        trigger="hover"
+        icon={<SettingOutlined />}>
+        <FloatButton
+          className="flex items-center justify-center"
+          type="primary"
+          icon={
+            theme === "dark" ? (
+              <SunIcon className="w-5 h-5" onClick={() => setTheme("light")} />
+            ) : (
+              <MoonIcon className="w-5 h-5" onClick={() => setTheme("dark")} />
+            )
+          }
+        />
+      </FloatButton.Group>
+      <FloatButton.BackTop visibilityHeight={0} />
+    </FloatButton.Group>
   );
-}
+};
+
+export default App;
