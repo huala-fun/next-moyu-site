@@ -22,9 +22,9 @@ export function GridView({
     <div className="grid flex-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5">
       {rankList.map((item, index) => (
         <Card
+          key={`card_${index}`}
           className="border border-slate-100 dark:border-none"
           hoverable
-          key={item.id}
           title={
             <div className="flex items-center gap-2">
               <Image
