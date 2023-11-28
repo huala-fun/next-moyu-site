@@ -30,7 +30,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange>
             <CustomConfigProvider>
-              <main className="py-8 px-[5vw]">{children}</main>
+              <main className="conttainer py-8 px-[5vw]">{children}</main>
             </CustomConfigProvider>
             <SliderTool />
             <Background />

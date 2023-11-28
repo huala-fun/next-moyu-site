@@ -46,9 +46,5 @@ export default function HotRank() {
     fetchDataForAllRanks();
   }, [isLoadRankMeta]);
 
-  return (
-    <div className="2xl:container">
-      <GridView rankList={hotRankData} setHotRankData={setHotRankData} />
-    </div>
-  );
+  return <GridView rankList={hotRankData} setHotRankData={setHotRankData} />;
 }
