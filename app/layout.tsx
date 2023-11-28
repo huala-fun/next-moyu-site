@@ -25,9 +25,7 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          <main className="py-8 px-4 sm:px-16">
-            {children}
-          </main>
+          <main className="py-8 px-[5vw]">{children}</main>
           <Background />
           <SliderTool />
           <Analytics />
