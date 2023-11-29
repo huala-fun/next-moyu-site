@@ -2,8 +2,9 @@
 import Sortable from "sortablejs";
 import { rankMetaList } from "@/lib/rank";
 import { useEffect, useRef, useState } from "react";
-import { App, Button } from "antd";
+import { App } from "antd";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 export default function Setting() {
   const { message } = App.useApp();
@@ -36,7 +37,10 @@ export default function Setting() {
           <div className="text-xl ">榜单排序</div>
           <p className="text-sm text-slate-400">拖拽排序</p>
         </div>
-        <Button type="primary" onClick={() => setSortedRankMetaList(() => [...rankMetaList])}>
+
+        <Button
+          variant={"link"}
+          onClick={() => setSortedRankMetaList(() => [...rankMetaList])}>
           恢复默认
         </Button>
       </div>
