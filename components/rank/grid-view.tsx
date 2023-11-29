@@ -66,7 +66,7 @@ export function GridView({
                 <div
                   key={item.id}
                   onClick={() => window.open(item.link, "_blank")}
-                  className="flex items-center gap-1 text-sm prose dark:prose-invert px-1 hover:cursor-pointer">
+                  className="flex items-center gap-2 text-sm prose dark:prose-invert px-1 hover:cursor-pointer">
                   <span
                     className={cn(
                       "flex items-center justify-center bg-slate-100 dark:bg-slate-900 rounded-md w-6 h-6 flex-shrink-0",
@@ -81,7 +81,9 @@ export function GridView({
                     )}>
                     {index + 1}
                   </span>
-                  <span className="move-right-animate">{item.title}</span>
+                  <span className="move-right-animate hover:after:h-[3px]">
+                    {item.title}
+                  </span>
                 </div>
               ))}
             </div>

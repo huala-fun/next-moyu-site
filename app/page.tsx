@@ -1,50 +1,53 @@
 "use client";
 import { useEffect, useState } from "react";
 import { GridView } from "@/components/rank/grid-view";
-
-const fetchHotRankMetaList = async () => {
-  const res = await fetch("/api/hot-rank/list");
-  const { code, data } = await res.json();
-  return code === 1
-    ? data.map((item: Rank) => ({ ...item, data: [], isLoadData: true }))
-    : [];
-};
+import { rankMetaList } from "@/lib/rank";
 
 const fetchRankData = async (index: number) => {
-  const res = await fetch(`/api/hot-rank?id=${index}`);
-  const { code, data } = await res.json();
-  return code === 1 ? data : [];
+  try {
+    const res = await fetch(`/api/hot-rank?id=${index}`);
+    const { code, data } = await res.json();
+    return code === 1 ? data : [];
+  } catch (error) {
+    console.error("Failed to fetch rank data:", error);
+    return [];
+  }
 };
 
 export default function HotRank() {
   const [hotRankData, setHotRankData] = useState<Rank[]>([]);
-  const [isLoadRankMeta, setIsLoadRankMeta] = useState<boolean>(false);
 
   useEffect(() => {
-    const handleLoadRankData = async () => {
-      const initialData = await fetchHotRankMetaList();
-      setHotRankData(initialData);
-      setIsLoadRankMeta(true);
-    };
-    handleLoadRankData();
-  }, []);
+    const storedRankList = localStorage.getItem("rankMetaList");
+    const initialRankList = storedRankList
+      ? JSON.parse(storedRankList)
+      : rankMetaList;
 
-  useEffect(() => {
+    const list = initialRankList.map((item: any) => ({
+      ...item,
+      data: [],
+      isLoadData: true,
+    }));
+
+    setHotRankData(list);
+
     const fetchDataForAllRanks = async () => {
-      await Promise.all(
-        hotRankData.map(async (rank, index) => {
-          const data = await fetchRankData(index);
-          setHotRankData((prev) => {
-            const temp = [...prev];
-            temp[index].data = data;
-            temp[index].isLoadData = false;
-            return temp;
-          });
-        })
+      const dataPromises = list.map((_: any, index: number) =>
+        fetchRankData(index)
+      );
+      const rankDataResults = await Promise.all(dataPromises);
+
+      setHotRankData((prev: Rank[]) =>
+        prev.map((rank: Rank, index: number) => ({
+          ...rank,
+          data: rankDataResults[index],
+          isLoadData: false,
+        }))
       );
     };
+
     fetchDataForAllRanks();
-  }, [isLoadRankMeta]);
+  }, []);
 
   return <GridView rankList={hotRankData} setHotRankData={setHotRankData} />;
 }

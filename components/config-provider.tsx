@@ -16,6 +16,8 @@ export default function CustomConfigProvider({ children }: ThemeProviderProps) {
             : antdTheme.defaultAlgorithm,
           antdTheme.compactAlgorithm,
         ],
+        components: {
+        } ,
       }}
       locale={zhCN}>
       <App>{children}</App>

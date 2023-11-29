@@ -29,8 +29,16 @@ export const rankList = [
   DouyinHotSearchRank,
   PengpaiRank,
   QQNewsRank,
-  PiyaoRank
+  PiyaoRank,
 ];
+
+export const rankMetaList = rankList.map((rank, index) => {
+  return {
+    name: rank.meta.name,
+    source: rank.meta.source,
+    id: index,
+  };
+});
 
 export async function AllRank() {
   const data = await Promise.all(rankList.map((rank) => rank.Rank()));
