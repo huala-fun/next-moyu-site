@@ -2,7 +2,7 @@
 import { useTheme } from "next-themes";
 import useHasMounted from "@/hook/use-has-mounted";
 import { AiOutlineSetting } from "react-icons/ai";
-import { Button } from "../ui/button";
+import { Button } from "./ui/button";
 import {
   BiArrowToTop,
   BiSolidSun,
@@ -10,14 +10,14 @@ import {
   BiHomeAlt,
 } from "react-icons/bi";
 import Link from "next/link";
-const App: React.FC = () => {
+const SliderTool: React.FC = () => {
   const hasMounted = useHasMounted();
   const { theme, setTheme } = useTheme();
   if (!hasMounted) {
     return null;
   }
   return (
-    <div className="fixed right-3 sm:right-6 bottom-12 flex flex-col gap-4">
+    <div className="fixed right-2 sm:right-5 bottom-12 flex flex-col gap-4">
       <Link href="/">
         <Button size="icon" className="rounded-full">
           <BiHomeAlt className="w-5 h-5" />
@@ -51,4 +51,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default SliderTool;

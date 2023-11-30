@@ -71,7 +71,7 @@ export function GridView({
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      className="pr-0"
+                      className="px-0"
                       variant={"link"}
                       onClick={() =>
                         handleUpdateRankById(index, setHotRankData)
@@ -93,9 +93,9 @@ export function GridView({
           </CardHeader>
           <CardContent className="p-3">
             {item.isLoadData || item.refresh ? (
-              <CardSkeleton rowNum={13} />
+              <CardSkeleton rowNum={15} />
             ) : (
-              <div className="h-[350px] pr-4 w-full flex flex-col gap-3 overflow-hidden hover:overflow-y-auto">
+              <div className="h-[450px] sm:h-[400px] pr-4 w-full flex flex-col gap-3 overflow-hidden hover:overflow-y-auto">
                 {item?.data?.map((item, index) => (
                   <div
                     key={item.id}
