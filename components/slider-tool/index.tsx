@@ -1,40 +1,53 @@
 "use client";
-import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import useHasMounted from "@/hook/use-has-mounted";
-import { FloatButton } from "antd";
-import { SettingOutlined } from "@ant-design/icons";
-
+import { AiOutlineSetting } from "react-icons/ai";
+import { Button } from "../ui/button";
+import {
+  BiArrowToTop,
+  BiSolidSun,
+  BiSolidMoon,
+  BiHomeAlt,
+} from "react-icons/bi";
+import Link from "next/link";
 const App: React.FC = () => {
   const hasMounted = useHasMounted();
   const { theme, setTheme } = useTheme();
   if (!hasMounted) {
     return null;
   }
-
   return (
-    <FloatButton.Group
-      type="primary"
-      shape="circle"
-      className="right-3 sm:right-6">
-      <FloatButton
-        onClick={() => window.open("/setting", "_blank")}
-        type="primary"
-        icon={<SettingOutlined />}
-      />
-      <FloatButton
-        className="flex items-center justify-center"
-        type="primary"
-        icon={
-          theme === "dark" ? (
-            <SunIcon className="w-5 h-5" onClick={() => setTheme("light")} />
-          ) : (
-            <MoonIcon className="w-5 h-5" onClick={() => setTheme("dark")} />
-          )
-        }
-      />
-      <FloatButton.BackTop type="primary" visibilityHeight={0} />
-    </FloatButton.Group>
+    <div className="fixed right-3 sm:right-6 bottom-12 flex flex-col gap-4">
+      <Link href="/">
+        <Button size="icon" className="rounded-full">
+          <BiHomeAlt className="w-5 h-5" />
+        </Button>
+      </Link>
+      <Link href="/setting">
+        <Button size="icon" className="rounded-full">
+          <AiOutlineSetting className="w-5 h-5" />
+        </Button>
+      </Link>
+      <Button size="icon" className="rounded-full">
+        {theme === "dark" ? (
+          <BiSolidSun className="w-5 h-5" onClick={() => setTheme("light")} />
+        ) : (
+          <BiSolidMoon className="w-5 h-5" onClick={() => setTheme("dark")} />
+        )}
+      </Button>
+      <Button
+        size="icon"
+        className="rounded-full"
+        onClick={() =>
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+          })
+        }>
+        <BiArrowToTop className="w-5 h-5" />
+      </Button>
+    </div>
   );
 };
 

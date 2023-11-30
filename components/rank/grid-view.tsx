@@ -13,7 +13,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "../ui/button";
-import { UpdateIcon } from "@radix-ui/react-icons";
+import { BiRefresh } from "react-icons/bi";
 
 const CardSkeleton = ({ rowNum }: { rowNum: number }) => {
   return (
@@ -46,7 +46,7 @@ export function GridView({
       {rankList.map((item, index) => (
         <Card
           key={`card_${index}`}
-          className="border border-slate-100 dark:border-slate-800">
+          className="border shadow-none hover:shadow-lg border-slate-100 dark:border-slate-800">
           <CardHeader className="p-3 py-2 border-b">
             <CardTitle className="flex justify-between">
               <div className="flex items-center gap-2">
@@ -69,13 +69,19 @@ export function GridView({
               </div>
               <TooltipProvider>
                 <Tooltip>
-                  <TooltipTrigger>
+                  <TooltipTrigger asChild>
                     <Button
+                      className="pr-0"
                       variant={"link"}
                       onClick={() =>
                         handleUpdateRankById(index, setHotRankData)
                       }>
-                      <UpdateIcon className={item.refresh ? "icon-spin" : ""} />
+                      <BiRefresh
+                        className={cn(
+                          "w-5 h-5",
+                          item.refresh && "animate-spin"
+                        )}
+                      />
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -109,9 +115,7 @@ export function GridView({
                       )}>
                       {index + 1}
                     </span>
-                    <span className="move-right-animate hover:after:h-[3px]">
-                      {item.title}
-                    </span>
+                    <span className="move-right-animate">{item.title}</span>
                   </div>
                 ))}
               </div>

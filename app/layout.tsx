@@ -4,10 +4,8 @@ import "./globals.css";
 import Background from "@/components/background";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
-import StyledComponentsRegistry from "@/components/AntdRegistry";
-import { cn } from "@/lib/utils";
-import CustomConfigProvider from "@/components/config-provider";
 import SliderTool from "@/components/slider-tool";
+import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,22 +19,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={cn(inter.className)}>
-        <StyledComponentsRegistry>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange>
-            <CustomConfigProvider>
-              <main className="conttainer py-8 px-[5vw]">{children}</main>
-            </CustomConfigProvider>
-            <SliderTool />
-            <Background />
-            <Analytics />
-          </ThemeProvider>
-        </StyledComponentsRegistry>
+    <html lang="zh-CN">
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange>
+          <main className="conttainer py-8 px-[5vw]">{children}</main>
+          <SliderTool />
+          <Background />
+          <Analytics />
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
