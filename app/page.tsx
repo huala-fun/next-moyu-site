@@ -23,7 +23,7 @@ export default function HotRank() {
       initialRankList.map(async (item: any, index) => {
         updateRankList((draft) => {
           item.data = [];
-          item.isLoadData = false;
+          item.isLoadData = true;
           draft.push(item);
         });
         const rank = await fetchRankData(item.id);
