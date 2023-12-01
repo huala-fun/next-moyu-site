@@ -3,7 +3,7 @@ import * as rank from "@/lib/rank/tieba"
 
 
 export const GET = async () => {
-  const res = await rank.Rank();
+  const res = await rank.rank();
 
   return NextResponse.json({
     data: res,
