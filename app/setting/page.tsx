@@ -25,6 +25,7 @@ export default function Setting() {
         chosenClass: "sortable-chosen",
         ghostClass: "sortable-ghost",
         dragClass: "sortable-drag",
+        delay: 500,
         onEnd: (evt: any) => {
           const newList = [...sortedRankMetaList.current];
           const [element] = newList.splice(evt.oldIndex, 1);
@@ -61,7 +62,7 @@ export default function Setting() {
           {sortedRankMetaList?.current.map((rank: any, index: number) => (
             <div
               key={index}
-              className="cursor-grab px-4 py-2 border rounded-md">
+              className="cursor-move px-4 py-2 border rounded-md">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Image

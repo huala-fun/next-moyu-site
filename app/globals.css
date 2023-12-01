@@ -119,7 +119,7 @@ body {
 
 @layer base {
   .sortable-chosen {
-    cursor: move;
+    @apply bg-green-200  !important;
   }
 
   .sortable-ghost {
