@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { GridView } from "@/components/rank/grid-view";
 import { getRankList } from "@/lib/store";
+import { useImmer } from "use-immer";
 
 const fetchRankData = async (index: number) => {
   try {
@@ -15,32 +16,23 @@ const fetchRankData = async (index: number) => {
 };
 
 export default function HotRank() {
-  const [hotRankData, setHotRankData] = useState<Rank[]>([]);
-
+  const [rankList, updateRankList] = useImmer<Rank[]>([]);
   useEffect(() => {
     const initialRankList = getRankList();
-    const list = initialRankList.map((item: any) => ({
-      ...item,
-      data: [],
-      isLoadData: true,
-    }));
-
-    setHotRankData(list);
-
-    const fetchDataForAllRanks = async () => {
-      const dataPromises = list.map((item: any) => fetchRankData(item.id));
-      const rankDataResults = await Promise.all(dataPromises);
-      setHotRankData((prev: Rank[]) =>
-        prev.map((rank: Rank, index: number) => ({
-          ...rank,
-          data: rankDataResults[index],
-          isLoadData: false,
-        }))
-      );
-    };
-
-    fetchDataForAllRanks();
+    Promise.all(
+      initialRankList.map(async (item: any, index) => {
+        updateRankList((draft) => {
+          item.data = [];
+          item.isLoadData = false;
+          draft.push(item);
+        });
+        const rank = await fetchRankData(item.id);
+        updateRankList((draft) => {
+          draft[index].data = rank;
+          draft[index].isLoadData = false;
+        });
+      })
+    );
   }, []);
-
-  return <GridView rankList={hotRankData} setHotRankData={setHotRankData} />;
+  return <GridView rankList={rankList} updateRankList={updateRankList} />;
 }
