@@ -4,9 +4,10 @@ export const meta = {
   name: "AcFun 排行榜",
   source: "acfun",
   url: "https://www.acfun.cn/rank/list?cid=-1&pcid=-1&range=THREE_DAYS",
+  id: "acfun_rank",
 };
 
-export async function Rank() {
+export async function rank() {
   try {
     const res = await fetch(
       "https://www.acfun.cn/rest/pc-direct/rank/channel?channelId=&subChannelId=&rankLimit=30&rankPeriod=THREE_DAYS"
@@ -26,3 +27,8 @@ export async function Rank() {
     return [];
   }
 }
+
+export default {
+  meta,
+  rank,
+};

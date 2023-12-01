@@ -2,9 +2,10 @@ export const meta = {
   name: "腾讯热点榜",
   source: "tengxun",
   url: "https://news.qq.com/",
+  id: "tencent_hot_rank",
 };
 
-export async function Rank() {
+export async function rank() {
   try {
     const res = await fetch(
       "https://i.news.qq.com/trpc.qqnews_web.kv_srv.kv_srv_http_proxy/NinjaPageContentSync?pull_urls=news_top_2018"
@@ -24,3 +25,7 @@ export async function Rank() {
     return [];
   }
 }
+export default {
+  meta,
+  rank,
+};

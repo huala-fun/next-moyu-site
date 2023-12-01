@@ -2,9 +2,10 @@ export const meta = {
   name: "澎湃热榜",
   source: "pengpai",
   url: "https://www.thepaper.cn/",
+  id: "pengpai_hot_rank",
 };
 
-export async function Rank() {
+export async function rank() {
   try {
     const headers = {
       "User-Agent":
@@ -33,3 +34,9 @@ export async function Rank() {
     return [];
   }
 }
+
+
+export default {
+  meta,
+  rank,
+};

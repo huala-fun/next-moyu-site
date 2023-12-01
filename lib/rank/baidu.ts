@@ -4,9 +4,10 @@ export const meta = {
   name: "Baidu热搜",
   source: "baidu",
   url: "https://top.baidu.com/board?tab=realtime",
+  id: "baidu_hot_search_rank",
 };
 
-export async function Rank() {
+export async function rank() {
   try {
     const res = await fetch("https://top.baidu.com/board?tab=realtime");
     const html = await res.text();
@@ -37,3 +38,7 @@ export async function Rank() {
     return [];
   }
 }
+export default {
+  meta,
+  rank,
+};

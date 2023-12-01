@@ -2,9 +2,10 @@ export const meta = {
   name: "微博热搜",
   source: "weibo",
   url: "https://weibo.com/hot/search",
+  id: "weibo_hot_search_rank",
 };
 
-export  async function Rank() {
+export async function rank() {
   try {
     const res = await fetch("https://weibo.com/ajax/side/hotSearch");
     const json = await res.json();
@@ -35,3 +36,7 @@ export  async function Rank() {
     return [];
   }
 }
+export default {
+  meta,
+  rank,
+};

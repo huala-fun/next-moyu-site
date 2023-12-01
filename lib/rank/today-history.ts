@@ -1,6 +1,7 @@
 export const meta = {
   name: "历史上的今天",
   source: "baidu",
+  id: "history_today",
 };
 
 function removeLinksKeepContent(text: string) {
@@ -14,7 +15,7 @@ function removeLinksKeepContent(text: string) {
   return result;
 }
 
-export async function Rank() {
+export async function rank() {
   try {
     // 创建一个 Date 对象
     const currentDate = new Date();
@@ -47,3 +48,7 @@ export async function Rank() {
     return [];
   }
 }
+export default {
+  meta,
+  rank,
+};

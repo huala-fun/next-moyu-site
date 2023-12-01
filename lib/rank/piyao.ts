@@ -3,9 +3,10 @@ export const meta = {
   source: "zhongguopiyao",
   url: "https://www.piyao.org.cn/yybgt/index.htm",
   desc: "只展示 50 个，更多点击标题",
+  id: "online_piyao",
 };
 
-export async function Rank() {
+export async function rank() {
   try {
     const res = await fetch(
       "https://www.piyao.org.cn/yybgt/ds_51d695fa456c4391bb119379c98df87b.json"
@@ -27,3 +28,8 @@ export async function Rank() {
     return [];
   }
 }
+
+export default {
+  meta,
+  rank,
+};

@@ -2,9 +2,10 @@ export const meta = {
   name: "新浪热榜",
   source: "weibo",
   url: "https://sinanews.sina.cn/h5/top_news_list.d.html?localCityCode=CN44010000000000",
+  id: "sina_hot_rank",
 };
 
-export async function Rank() {
+export async function rank() {
   try {
     const res = await fetch(
       "https://newsapp.sina.cn/api/hotlist?newsId=HB-1-snhs%2Ftop_news_list-all"
@@ -28,3 +29,7 @@ export async function Rank() {
     return [];
   }
 }
+export default {
+  meta,
+  rank,
+};

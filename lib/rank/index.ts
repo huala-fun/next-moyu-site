@@ -1,18 +1,19 @@
-import * as ZhihuRank from "./zhihu";
-import * as WeiboRank from "./weibo";
-import * as BiliBiliRank from "./bilibili";
-import * as ToutiaoRank from "./toutiao";
-import * as BaiduRank from "./baidu";
-import * as HupuBuxinjieRank from "./hupu";
-import * as HuxiuRank from "./huxiu";
-import * as DouyinHotSearchRank from "./douyin";
-import * as PengpaiRank from "./pengpai";
-import * as AcFun from "./acfun";
-import * as QQNewsRank from "./qqnews";
-import * as SinaRank from "./sina";
-import * as PiyaoRank from "./piyao";
-import * as TiebaRank from "./tieba";
-import * as HistoryTodayRank from "./today-history";
+import ZhihuRank from "./zhihu";
+import WeiboRank from "./weibo";
+import BiliBiliRank from "./bilibili";
+import ToutiaoRank from "./toutiao";
+import BaiduRank from "./baidu";
+import HuxiuRank from "./huxiu";
+import DouyinHotSearchRank from "./douyin";
+import PengpaiRank from "./pengpai";
+import AcFun from "./acfun";
+import QQNewsRank from "./qqnews";
+import SinaRank from "./sina";
+import PiyaoRank from "./piyao";
+import TiebaRank from "./tieba";
+import HistoryTodayRank from "./today-history";
+
+import HuPuList from "./hupu";
 
 export const rankList = [
   HistoryTodayRank,
@@ -24,7 +25,7 @@ export const rankList = [
   ToutiaoRank,
   BaiduRank,
   TiebaRank,
-  HupuBuxinjieRank,
+  ...HuPuList,
   HuxiuRank,
   DouyinHotSearchRank,
   PengpaiRank,
@@ -32,22 +33,19 @@ export const rankList = [
   PiyaoRank,
 ];
 
-export const rankMetaList = rankList.map((rank, index) => {
-  return {
-    name: rank.meta.name,
-    source: rank.meta.source,
-    id: index,
-  };
-});
+export const rankMetaList = rankList.map((rank) => rank.meta);
+
+export const id2Item = rankList.reduce((obj: any, item: any) => {
+  obj[item.meta.id] = item;
+  return obj;
+}, {});
 
 export async function AllRank() {
-  const data = await Promise.all(rankList.map((rank) => rank.Rank()));
+  const data = await Promise.all(rankList.map((rank) => rank.rank()));
   return data;
 }
 
-export async function Rank(id: number) {
-  const data = await rankList[id].Rank();
+export async function Rank(id: string) {
+  const data = await id2Item[id].rank();
   return data;
 }
-
-export { ZhihuRank, WeiboRank };

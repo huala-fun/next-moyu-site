@@ -2,9 +2,10 @@ export const meta = {
   name: "知乎热榜",
   source: "zhihu",
   url: "https://www.zhihu.com/hot",
+  id: "zhihu_hot_rank",
 };
 
-export async function Rank() {
+export async function rank() {
   try {
     const res = await fetch(
       "https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=50&desktop=true",
@@ -34,3 +35,8 @@ export async function Rank() {
     return [];
   }
 }
+
+export default {
+  meta,
+  rank,
+};

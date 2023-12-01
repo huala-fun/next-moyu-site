@@ -2,9 +2,10 @@ export const meta = {
   name: "贴吧热议话题",
   source: "baidu",
   url: "https://tieba.baidu.com/hottopic/browse/topicList?res_type=1",
+  id: "tieba_hot_topic_rank",
 };
 
-export async function Rank() {
+export async function rank() {
   try {
     const res = await fetch(
       "https://tieba.baidu.com/hottopic/browse/topicList"
@@ -27,3 +28,7 @@ export async function Rank() {
     return [];
   }
 }
+export default {
+  meta,
+  rank,
+};

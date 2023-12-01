@@ -2,9 +2,10 @@ export const meta = {
   name: "虎嗅最新文章",
   source: "huxiu",
   url: "https://www.huxiu.com/article/",
+  id: "huxiu_latest_article",
 };
 
-export async function Rank() {
+export async function rank() {
   try {
     let formData = new FormData();
     formData.append("platform", "www");
@@ -32,3 +33,8 @@ export async function Rank() {
     return [];
   }
 }
+
+export default {
+  meta,
+  rank,
+};

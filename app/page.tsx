@@ -19,13 +19,15 @@ export default function HotRank() {
   const [rankList, updateRankList] = useImmer<Rank[]>([]);
   useEffect(() => {
     const initialRankList = getRankList();
+    updateRankList(
+      initialRankList.map((item) => ({
+        ...item,
+        data: [],
+        isLoadData: true,
+      }))
+    );
     Promise.all(
       initialRankList.map(async (item: any, index) => {
-        updateRankList((draft) => {
-          item.data = [];
-          item.isLoadData = true;
-          draft.push(item);
-        });
         const rank = await fetchRankData(item.id);
         updateRankList((draft) => {
           draft[index].data = rank;

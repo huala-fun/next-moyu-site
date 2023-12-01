@@ -1,10 +1,10 @@
 export const meta = {
   name: "BiliBili热搜",
   source: "bilibili",
-  id: 3,
+  id: "bilibili_hot_search_rank",
 };
 
-export async function Rank() {
+export async function rank() {
   try {
     const res = await fetch(
       "https://api.bilibili.com/x/web-interface/wbi/search/square?limit=50",
@@ -31,3 +31,7 @@ export async function Rank() {
     return [];
   }
 }
+export default {
+  meta,
+  rank,
+};

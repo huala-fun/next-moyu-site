@@ -2,9 +2,10 @@ export const meta = {
   name: "抖音热搜榜",
   source: "douyin",
   url: "https://www.douyin.com/discover",
+  id: "douyin_hot_search_rank",
 };
 
-export  async function Rank() {
+export  async function rank() {
   try {
     const headers = {
       "User-Agent":
@@ -37,3 +38,7 @@ export  async function Rank() {
     return [];
   }
 }
+export default {
+  meta,
+  rank,
+};
