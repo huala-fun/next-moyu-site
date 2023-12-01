@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { GridView } from "@/components/rank/grid-view";
+import { GridView } from "@/components/grid-view";
 import { getRankList } from "@/lib/store";
 import { useImmer } from "use-immer";
 

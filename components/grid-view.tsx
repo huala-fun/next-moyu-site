@@ -12,7 +12,7 @@ import Sortable from "sortablejs";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "../ui/button";
+import { Button } from "./ui/button";
 import { BiRefresh, BiMove } from "react-icons/bi";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -78,13 +78,21 @@ export function GridView({
           ghostClass: "sortable-ghost",
           dragClass: "sortable-drag",
           forceFallback: true,
-          animation: 150,
+          animation: 300,
           onEnd: (evt: any) => {
+            const [oldIndex, newIndex] = [evt.oldIndex, evt.newIndex];
+            if (oldIndex === newIndex) return;
             updateRankList((draft: any) => {
-              const [element] = draft.splice(evt.oldIndex, 1);
-              draft.splice(evt.newIndex, 0, element);
-              console.log(draft);
-              setRankList(draft);
+              const [element] = draft.splice(oldIndex, 1);
+              draft.splice(newIndex, 0, element);
+              setRankList(
+                draft.map((item: any) => {
+                  return {
+                    ...item,
+                    data: [],
+                  };
+                })
+              );
               toast.success("排序成功");
             });
           },
