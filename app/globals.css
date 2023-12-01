@@ -116,3 +116,19 @@ body {
   border-radius: 100%;
   animation: widthChange 0.3s ease-in-out forwards;
 }
+
+@layer base {
+  .sortable-chosen {
+    cursor: move;
+  }
+
+  .sortable-ghost {
+    @apply bg-green-200  !important;
+  }
+
+  .sortable-drag {
+    @apply bg-green-200  !important;
+    @apply shadow-md !important;
+    opacity: 1;
+  }
+}

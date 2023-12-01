@@ -9,12 +9,15 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import Sortable from "sortablejs";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "../ui/button";
-import { BiRefresh } from "react-icons/bi";
-
+import { BiRefresh, BiMove } from "react-icons/bi";
+import { useEffect, useRef } from "react";
+import toast from "react-hot-toast";
+import { setRankList } from "@/lib/store";
 const CardSkeleton = ({ rowNum }: { rowNum: number }) => {
   return (
     <div className="flex flex-col gap-2 w-full">
@@ -41,12 +44,43 @@ export function GridView({
   rankList: Rank[];
   setHotRankData: any;
 }) {
+  const sortedRankMetaList = useRef<any[]>([]);
+  const gridViewRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    sortedRankMetaList.current = rankList;
+  }, [rankList]);
+
+  useEffect(() => {
+    if (gridViewRef.current) {
+      Sortable.create(gridViewRef.current, {
+        draggable: ".card",
+        handle: ".move",
+        chosenClass: "sortable-chosen",
+        ghostClass: "sortable-ghost",
+        dragClass: "sortable-drag",
+        forceFallback: true,
+        animation: 150,
+        onEnd: (evt: any) => {
+          const newList = [...sortedRankMetaList.current];
+          const [element] = newList.splice(evt.oldIndex, 1);
+          newList.splice(evt.newIndex, 0, element);
+          sortedRankMetaList.current = newList;
+          setRankList(newList);
+          toast.success("排序成功");
+        },
+      });
+    }
+  }, []);
+
   return (
-    <div className="grid flex-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-5">
+    <div
+      ref={gridViewRef}
+      className="grid flex-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-5">
       {rankList.map((item, index) => (
         <Card
           key={`card_${index}`}
-          className="border shadow-none hover:shadow-lg border-slate-100 dark:border-slate-800">
+          className="card border shadow-none hover:shadow-lg border-slate-100 dark:border-slate-800">
           <CardHeader className="p-3 py-2 border-b">
             <CardTitle className="flex justify-between">
               <div className="flex items-center gap-2">
@@ -67,28 +101,47 @@ export function GridView({
                   </Link>
                 )}
               </div>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      className="px-0"
-                      variant={"link"}
-                      onClick={() =>
-                        handleUpdateRankById(index, setHotRankData)
-                      }>
-                      <BiRefresh
-                        className={cn(
-                          "w-5 h-5",
-                          item.refresh && "animate-spin"
-                        )}
-                      />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>刷新内容</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <div className="flex gap-2">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button className="px-0 move" variant={"link"}>
+                        <BiMove
+                          className={cn(
+                            "w-5 h-5",
+                            item.refresh && "animate-spin"
+                          )}
+                        />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>拖拽排序</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        className="px-0"
+                        variant={"link"}
+                        onClick={() =>
+                          handleUpdateRankById(index, setHotRankData)
+                        }>
+                        <BiRefresh
+                          className={cn(
+                            "w-5 h-5",
+                            item.refresh && "animate-spin"
+                          )}
+                        />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>刷新内容</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
             </CardTitle>
           </CardHeader>
           <CardContent className="p-3">

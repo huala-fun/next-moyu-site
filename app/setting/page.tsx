@@ -22,6 +22,9 @@ export default function Setting() {
     setRefresh(!refresh);
     if (rankListRef.current) {
       Sortable.create(rankListRef.current, {
+        chosenClass: "sortable-chosen",
+        ghostClass: "sortable-ghost",
+        dragClass: "sortable-drag",
         onEnd: (evt: any) => {
           const newList = [...sortedRankMetaList.current];
           const [element] = newList.splice(evt.oldIndex, 1);
@@ -45,8 +48,9 @@ export default function Setting() {
             onClick={() => {
               updateRankList(rankMetaList);
               setRefresh(!refresh);
+              toast.success("重置成功");
             }}>
-            恢复默认
+            重置
           </Button>
         </div>
       </CardHeader>
