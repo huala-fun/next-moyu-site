@@ -12,6 +12,7 @@ import SinaRank from "./sina";
 import PiyaoRank from "./piyao";
 import TiebaRank from "./tieba";
 import HistoryTodayRank from "./today-history";
+import NBDRank from "@/lib/rank/nbd"
 
 import HuPuList from "./hupu";
 
@@ -20,6 +21,7 @@ export const rankList = [
   AcFun,
   ZhihuRank,
   WeiboRank,
+  NBDRank,
   SinaRank,
   BiliBiliRank,
   ToutiaoRank,

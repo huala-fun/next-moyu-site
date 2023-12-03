@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import * as rank from "@/lib/rank/tieba"
+import * as rank from "@/lib/rank/nbd"
 
 
 export const GET = async () => {
