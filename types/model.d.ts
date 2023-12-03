@@ -6,7 +6,7 @@ interface RankItem {
 }
 
 interface Rank {
-  id: number;
+  id: string;
   name: string;
   data: RankItem[];
   source: string;

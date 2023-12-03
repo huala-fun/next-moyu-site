@@ -33,7 +33,7 @@ const CardSkeleton = ({ rowNum }: { rowNum: number }) => {
 
 const handleUpdateRankById = async (
   index: number,
-  id: number,
+  id: string,
   updateRankList: any
 ) => {
   try {

@@ -129,4 +129,8 @@ body {
   .sortable-drag {
     opacity: 1 !important;
   }
+
+  .active-tab{
+    background-color: var(bg-primary);
+  }
 }
