@@ -10,26 +10,13 @@ import {
 } from "@/components/ui/tooltip";
 import Sortable from "sortablejs";
 
-import { Skeleton } from "@/components/ui/skeleton";
+import { SkeletonBar } from "@/components/skeleton-bar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { BiRefresh, BiMove } from "react-icons/bi";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { setRankList } from "@/lib/store";
-
-const CardSkeleton = ({ rowNum }: { rowNum: number }) => {
-  return (
-    <div className="flex flex-col gap-2 w-full">
-      {Array.from({ length: rowNum }).map((_, index) => (
-        <Skeleton
-          key={`skeleton_${index}`}
-          className="w-full h-[20px] rounded-full"
-        />
-      ))}
-    </div>
-  );
-};
 
 const handleUpdateRankById = async (
   index: number,
@@ -170,7 +157,7 @@ export function GridView({
           </CardHeader>
           <CardContent className="p-3">
             {item.isLoadData ? (
-              <CardSkeleton rowNum={15} />
+              <SkeletonBar rowNum={15} />
             ) : (
               <RankDetail rankItemList={item.data} />
             )}
