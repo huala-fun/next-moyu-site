@@ -120,92 +120,90 @@ const RankItem = ({
   updateRankList: any;
 }) => {
   return (
-    <Card
-      key={`card_${rank.id}`}
-      className="card border shadow-none hover:shadow-lg border-slate-100 dark:border-slate-800 rounded-2xl">
-      <CardHeader className="p-3 pb-0">
-        <CardTitle className="flex justify-between">
-          <div className="flex items-center gap-2 text-sm">
-            <Image src={`/${rank.source}.ico`} alt="" width={20} height={20} />
-            {!rank.url ? (
-              <span className="dark:text-slate-400"> {rank.name}</span>
-            ) : (
-              <Link
-                target="_blank"
-                href={rank.url}
-                className="dark:text-slate-400">
-                {rank.name}
-              </Link>
-            )}
-          </div>
-          <div className="flex gap-2">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button className="px-0 move" variant={"link"}>
-                    <BiMove className={cn("w-5 h-5")} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>拖拽排序</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    className="px-0"
-                    variant={"link"}
-                    onClick={() =>
-                      handleUpdateRankById(index, rank.id, updateRankList)
-                    }>
-                    <BiRefresh
-                      className={cn(
-                        "w-5 h-5",
-                        rank.isLoadData && "animate-spin"
-                      )}
-                    />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>刷新内容</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-3">
-        {rank.isLoadData ? (
-          <SkeletonBar rowNum={15} />
-        ) : (
-          <div className="h-[415px] pr-4 w-full flex flex-col gap-3 overflow-hidden hover:overflow-y-auto">
-            {rank.data.map((item, index) => (
-              <div
-                key={item.id}
-                onClick={() => window.open(item.link, "_blank")}
-                className="flex items-center gap-2 text-sm prose dark:prose-invert px-1 hover:cursor-pointer">
-                <span
-                  className={cn(
-                    "flex items-center justify-center bg-slate-100 dark:bg-slate-900 rounded-md w-6 h-6 flex-shrink-0",
-                    index < 3 ? "text-white" : "",
-                    index === 0
-                      ? "bg-red-500 dark:bg-red-500 text-white"
-                      : index === 1
-                      ? "bg-orange-500 dark:bg-orange-500"
-                      : index === 2
-                      ? "bg-yellow-500 dark:bg-yellow-500"
-                      : ""
-                  )}>
-                  {index + 1}
-                </span>
-                <span className="move-right-animate">{item.title}</span>
-              </div>
-            ))}
-          </div>
-        )}
-      </CardContent>
-    </Card>
+    <Link href={`/tabs/${rank.id}`}>
+      <Card
+        key={`card_${rank.id}`}
+        className="card border shadow-none hover:shadow-lg border-slate-100 dark:border-slate-800 rounded-2xl">
+        <CardHeader className="p-3 pb-0">
+          <CardTitle className="flex justify-between">
+            <div className="flex items-center gap-2 text-sm">
+              <Image
+                src={`/${rank.source}.ico`}
+                alt=""
+                width={20}
+                height={20}
+              />
+              <span className="dark:text-slate-400">{rank.name}</span>
+            </div>
+            <div className="flex gap-2">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button className="px-0 move" variant={"link"}>
+                      <BiMove className={cn("w-5 h-5")} />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>拖拽排序</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      className="px-0"
+                      variant={"link"}
+                      onClick={() =>
+                        handleUpdateRankById(index, rank.id, updateRankList)
+                      }>
+                      <BiRefresh
+                        className={cn(
+                          "w-5 h-5",
+                          rank.isLoadData && "animate-spin"
+                        )}
+                      />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>刷新内容</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-3">
+          {rank.isLoadData ? (
+            <SkeletonBar rowNum={15} />
+          ) : (
+            <div className="h-[415px] pr-4 w-full flex flex-col gap-3 overflow-hidden hover:overflow-y-auto">
+              {rank.data.map((item, index) => (
+                <div
+                  key={item.id}
+                  onClick={() => window.open(item.link, "_blank")}
+                  className="flex items-center gap-2 text-sm prose dark:prose-invert px-1 hover:cursor-pointer">
+                  <span
+                    className={cn(
+                      "flex items-center justify-center bg-slate-100 dark:bg-slate-900 rounded-md w-6 h-6 flex-shrink-0",
+                      index < 3 ? "text-white" : "",
+                      index === 0
+                        ? "bg-red-500 dark:bg-red-500 text-white"
+                        : index === 1
+                        ? "bg-orange-500 dark:bg-orange-500"
+                        : index === 2
+                        ? "bg-yellow-500 dark:bg-yellow-500"
+                        : ""
+                    )}>
+                    {index + 1}
+                  </span>
+                  <span className="move-right-animate">{item.title}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </Link>
   );
 };

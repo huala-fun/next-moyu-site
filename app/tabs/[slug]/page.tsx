@@ -15,12 +15,14 @@ import { useImmer } from "use-immer";
 
 export default function Tabs({ params }: { params: { slug: string } }) {
   const [rankList, updateRankList] = useImmer<Rank[]>([]);
-  const [activeTab, setActiveTab] = useImmer<any>(params.slug);
+  const [activeTab, setActiveTab] = useImmer<any>(null);
   const [rankData, setRankData] = useImmer<RankItem[]>([]);
   const [isLoadData, setIsLoadData] = useImmer(false);
 
   useEffect(() => {
     const initialRankList = getRankList();
+    const item = initialRankList.find((item) => (item.id = params.slug));
+    item && setActiveTab(item);
     updateRankList(initialRankList);
   }, []);
 
@@ -43,10 +45,31 @@ export default function Tabs({ params }: { params: { slug: string } }) {
     <div className="flex flex-col gap-2">
       {/* rank tabs */}
       <div className="sticky top-0 flex gap-2 flex-row flex-wrap px-2 py-1 rounded-lg shadow-md bg-white dark:bg-[var(--card)]  border dark:border-none">
-        {rankList.map((rank) => (
+        {rankList.map((rank, index) => (
           <div
-            key={rank.id}
-            onClick={() => setActiveTab(rank)}
+            key={`${rank.id}_${index}`}
+            onClick={() => {
+              // 获取当前的URL
+              var currentURL = window.location.href;
+              console.log(currentURL);
+              
+              // 新的URL
+              var newURL = `${location.protocol}://${location.host}/tabs/${rank.id}`;
+
+              // 使用pushState改变URL，但不刷新页面
+              window.history.pushState({ path: newURL }, "", newURL);
+
+              // 监听popstate事件，当用户点击浏览器的前进或后退按钮时触发
+              window.addEventListener("popstate", function (event) {
+                // 恢复到先前的URL
+                window.history.replaceState(
+                  { path: currentURL },
+                  "",
+                  currentURL
+                );
+              });
+              setActiveTab(rank);
+            }}
             className={cn(
               "flex gap-2 px-2 py-1 text-sm rounded-lg cursor-pointer border hover:shadow-lg",
               activeTab.id == rank.id && "text-red-600 dark:text-red-600"
