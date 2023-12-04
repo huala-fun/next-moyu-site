@@ -15,6 +15,7 @@ import HistoryTodayRank from "./today-history";
 import NBDRank from "@/lib/rank/nbd"
 
 import HuPuList from "./hupu";
+import _36KrList from "./36kr";
 
 export const rankList = [
   HistoryTodayRank,
@@ -28,6 +29,7 @@ export const rankList = [
   BaiduRank,
   TiebaRank,
   ...HuPuList,
+  ..._36KrList,
   HuxiuRank,
   DouyinHotSearchRank,
   PengpaiRank,

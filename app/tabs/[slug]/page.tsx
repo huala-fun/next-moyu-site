@@ -13,18 +13,15 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { useImmer } from "use-immer";
 
-export default function Tabs() {
+export default function Tabs({ params }: { params: { slug: string } }) {
   const [rankList, updateRankList] = useImmer<Rank[]>([]);
-  const [activeTab, setActiveTab] = useImmer<any>(null);
+  const [activeTab, setActiveTab] = useImmer<any>(params.slug);
   const [rankData, setRankData] = useImmer<RankItem[]>([]);
   const [isLoadData, setIsLoadData] = useImmer(false);
 
   useEffect(() => {
     const initialRankList = getRankList();
     updateRankList(initialRankList);
-    if (initialRankList.length) {
-      setActiveTab(initialRankList[0]);
-    }
   }, []);
 
   useEffect(() => {
