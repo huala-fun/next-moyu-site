@@ -21,13 +21,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-CN">
-      <body className={cn("select-none", inter.className)} >
+      <body className={cn("select-none", inter.className)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          <main className="conttainer py-8 px-4 sm:px-20">{children}</main>
+          <main className="container py-8 px-4 sm:px-20">{children}</main>
           <SliderTool />
           <Background />
           <Analytics />

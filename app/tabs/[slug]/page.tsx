@@ -10,34 +10,51 @@ import {
 import { getRankList } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
 import { useImmer } from "use-immer";
 
+/**
+ * 标签模式
+ *
+ * @param param0
+ * @returns
+ */
 export default function Tabs({ params }: { params: { slug: string } }) {
+  const router = useRouter();
   const [rankList, updateRankList] = useImmer<Rank[]>([]);
-  const [activeTab, setActiveTab] = useImmer<any>(null);
+  const activeTabRef = useRef<any>(null);
   const [rankData, setRankData] = useImmer<RankItem[]>([]);
   const [isLoadData, setIsLoadData] = useImmer(false);
 
   useEffect(() => {
     const initialRankList = getRankList();
     const item = initialRankList.find((item) => (item.id = params.slug));
-    item && setActiveTab(item);
+    item && (activeTabRef.current = item);
     updateRankList(initialRankList);
   }, []);
 
   useEffect(() => {
     const fetchRankData = async () => {
       setIsLoadData(true);
-      const res = await fetch(`/api/hot-rank?id=${activeTab.id}`);
+      const res = await fetch(`/api/hot-rank?id=${activeTabRef.current.id}`);
       const { code = 0, data = [] } = await res.json();
       code == 1 && setRankData(data);
       setIsLoadData(false);
     };
-    activeTab && fetchRankData();
-  }, [activeTab]);
+    activeTabRef.current && fetchRankData();
+    console.log("activeTabRef.current", activeTabRef.current);
+  }, [router]);
 
-  if (!activeTab) {
+  const handleClickTab = (rank: any) => {
+    activeTabRef.current = rank;
+    // 新的URL
+    const newURL = `/tabs/${rank.id}`;
+    // 使用Next.js的Router来改变URL，但不刷新页面
+    router.push(newURL, newURL);
+  };
+
+  if (!activeTabRef.current) {
     return null;
   }
 
@@ -48,31 +65,11 @@ export default function Tabs({ params }: { params: { slug: string } }) {
         {rankList.map((rank, index) => (
           <div
             key={`${rank.id}_${index}`}
-            onClick={() => {
-              // 获取当前的URL
-              var currentURL = window.location.href;
-              console.log(currentURL);
-              
-              // 新的URL
-              var newURL = `${location.protocol}://${location.host}/tabs/${rank.id}`;
-
-              // 使用pushState改变URL，但不刷新页面
-              window.history.pushState({ path: newURL }, "", newURL);
-
-              // 监听popstate事件，当用户点击浏览器的前进或后退按钮时触发
-              window.addEventListener("popstate", function (event) {
-                // 恢复到先前的URL
-                window.history.replaceState(
-                  { path: currentURL },
-                  "",
-                  currentURL
-                );
-              });
-              setActiveTab(rank);
-            }}
+            onClick={() => handleClickTab(rank)}
             className={cn(
               "flex gap-2 px-2 py-1 text-sm rounded-lg cursor-pointer border hover:shadow-lg",
-              activeTab.id == rank.id && "text-red-600 dark:text-red-600"
+              activeTabRef.current.id == rank.id &&
+                "text-red-600 dark:text-red-600"
             )}>
             <Image src={`/${rank.source}.ico`} alt="" width={20} height={20} />
             <span className="flex-shrink-0">{rank.name}</span>
@@ -85,12 +82,12 @@ export default function Tabs({ params }: { params: { slug: string } }) {
           <CardTitle className="flex justify-between items-center">
             <div className="flex gap-2 items-center">
               <Image
-                src={`/${activeTab.source}.ico`}
+                src={`/${activeTabRef.current.source}.ico`}
                 alt=""
                 width={20}
                 height={20}
               />
-              <span className="flex-shrink-0">{activeTab.name}</span>
+              <span className="flex-shrink-0">{activeTabRef.current.name}</span>
             </div>
             <div className="text-sm">共 {rankData.length} 条</div>
           </CardTitle>
