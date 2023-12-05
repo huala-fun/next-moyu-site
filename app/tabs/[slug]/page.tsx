@@ -10,7 +10,7 @@ import {
 import { getRankList } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { useImmer } from "use-immer";
 
@@ -23,38 +23,42 @@ import { useImmer } from "use-immer";
 export default function Tabs({ params }: { params: { slug: string } }) {
   const router = useRouter();
   const [rankList, updateRankList] = useImmer<Rank[]>([]);
-  const activeTabRef = useRef<any>(null);
+  const [activeTabId, setActiveTabId] = useImmer<string>(params.slug);
+
   const [rankData, setRankData] = useImmer<RankItem[]>([]);
+  // 加载数据
   const [isLoadData, setIsLoadData] = useImmer(false);
 
   useEffect(() => {
-    const initialRankList = getRankList();
-    const item = initialRankList.find((item) => (item.id = params.slug));
-    item && (activeTabRef.current = item);
-    updateRankList(initialRankList);
+    updateRankList(getRankList());
   }, []);
 
-  useEffect(() => {
-    const fetchRankData = async () => {
-      setIsLoadData(true);
-      const res = await fetch(`/api/hot-rank?id=${activeTabRef.current.id}`);
-      const { code = 0, data = [] } = await res.json();
-      code == 1 && setRankData(data);
-      setIsLoadData(false);
-    };
-    activeTabRef.current && fetchRankData();
-    console.log("activeTabRef.current", activeTabRef.current);
-  }, [router]);
+  useEffect(() => {}, [activeTabId]);
 
+  /**
+   * 请求热榜数据
+   */
+  const fetchRankData = async () => {
+    setIsLoadData(true);
+    const res = await fetch(`/api/hot-rank?id=${activeTabId}`);
+    const { code = 0, data = [] } = await res.json();
+    code == 1 && setRankData(data);
+    setIsLoadData(false);
+  };
+
+  /**
+   * 点击 tab
+   * @param rank
+   */
   const handleClickTab = (rank: any) => {
-    activeTabRef.current = rank;
+    setActiveTabId(rank.id);
     // 新的URL
     const newURL = `/tabs/${rank.id}`;
     // 使用Next.js的Router来改变URL，但不刷新页面
     router.push(newURL, newURL);
   };
 
-  if (!activeTabRef.current) {
+  if (!activeTabId) {
     return null;
   }
 
@@ -68,7 +72,7 @@ export default function Tabs({ params }: { params: { slug: string } }) {
             onClick={() => handleClickTab(rank)}
             className={cn(
               "flex gap-2 px-2 py-1 text-sm rounded-lg cursor-pointer border hover:shadow-lg",
-              activeTabRef.current.id == rank.id &&
+              activeTabId == rank.id &&
                 "text-red-600 dark:text-red-600"
             )}>
             <Image src={`/${rank.source}.ico`} alt="" width={20} height={20} />

@@ -95,7 +95,7 @@ export function GridView({
       className="grid flex-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 gap-5">
       {rankList.map((item, index) => (
         <RankItem
-          key={item.id}
+          key={`item_rank_${item.id}`}
           rank={item}
           index={index}
           updateRankList={updateRankList}
@@ -121,67 +121,57 @@ const RankItem = ({
 }) => {
   return (
     <Card
-      key={`card_${rank.id}`}
+      key={`card_${rank.id}_${index}`}
       className="card border shadow-none hover:shadow-lg border-slate-100 dark:border-slate-800 rounded-2xl">
-      <CardHeader className="p-3 pb-0">
-        <CardTitle className="flex justify-between">
-          <Link href={`/tabs/${rank.id}`}>
-            <div className="flex items-center gap-2 text-sm">
-              <Image
-                src={`/${rank.source}.ico`}
-                alt=""
-                width={20}
-                height={20}
-              />
-              <span className="dark:text-slate-400">{rank.name}</span>
-            </div>
-          </Link>
-          <div className="flex gap-2">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button className="px-0 move" variant={"link"}>
-                    <BiMove className={cn("w-5 h-5")} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>拖拽排序</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    className="px-0"
-                    variant={"link"}
-                    onClick={() =>
-                      handleUpdateRankById(index, rank.id, updateRankList)
-                    }>
-                    <BiRefresh
-                      className={cn(
-                        "w-5 h-5",
-                        rank.isLoadData && "animate-spin"
-                      )}
-                    />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>刷新内容</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+      <CardHeader className="flex items-center justify-between gap-2">
+        <Link href={`/tabs/${rank.id}`}>
+          <div className="flex items-center gap-2 text-sm">
+            <Image src={`/${rank.source}.ico`} alt="" width={20} height={20} />
+            <span className="dark:text-slate-400">{rank.name}</span>
           </div>
-        </CardTitle>
+        </Link>
+        <div className="flex gap-2">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button className="px-0 move" variant={"link"}>
+                  <BiMove className={cn("w-5 h-5")} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>拖拽排序</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  className="px-0"
+                  variant={"link"}
+                  onClick={() =>
+                    handleUpdateRankById(index, rank.id, updateRankList)
+                  }>
+                  <BiRefresh
+                    className={cn("w-5 h-5", rank.isLoadData && "animate-spin")}
+                  />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>刷新内容</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
       </CardHeader>
-      <CardContent className="p-3">
+      <CardContent>
         {rank.isLoadData ? (
           <SkeletonBar rowNum={15} />
         ) : (
           <div className="h-[415px] pr-4 w-full flex flex-col gap-3 overflow-hidden hover:overflow-y-auto">
             {rank.data.map((item, index) => (
               <div
-                key={item.id}
+                key={`item_${item.id}`}
                 onClick={() => window.open(item.link, "_blank")}
                 className="flex items-center gap-2 text-sm prose dark:prose-invert px-1 hover:cursor-pointer">
                 <span
