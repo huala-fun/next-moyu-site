@@ -17,7 +17,7 @@ import { BiRefresh, BiMove } from "react-icons/bi";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { setRankList } from "@/lib/store";
-
+import TooltipString from "./tooltip-string";
 const handleUpdateRankById = async (
   index: number,
   id: string,
@@ -124,11 +124,18 @@ const RankItem = ({
       key={`card_${rank.id}_${index}`}
       className="card border shadow-none hover:shadow-lg border-slate-100 dark:border-slate-800 rounded-2xl">
       <CardHeader className="flex items-center justify-between gap-2">
-        <Link href={`/tabs/${rank.id}`}>
-          <div className="flex items-center gap-2 text-sm">
-            <Image src={`/${rank.source}.ico`} alt="" width={20} height={20} />
-            <span className="dark:text-slate-400">{rank.name}</span>
-          </div>
+        <Link href={`/rank/${rank.id}`}>
+          <TooltipString tooltip="点击查看更多">
+            <div className="flex items-center gap-2 text-sm">
+              <Image
+                src={`/${rank.source}.ico`}
+                alt=""
+                width={20}
+                height={20}
+              />
+              <span className="dark:text-slate-400">{rank.name}</span>
+            </div>
+          </TooltipString>
         </Link>
         <div className="flex gap-2">
           <TooltipProvider>

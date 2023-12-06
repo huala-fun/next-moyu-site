@@ -4,6 +4,7 @@ export const meta = {
   name: "虎扑步行街",
   source: "hupu",
   url: "https://bbs.hupu.com/all-gambia",
+  id: "hupu_buxingjie",
 };
 
 export async function rank() {
