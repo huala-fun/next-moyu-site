@@ -164,7 +164,7 @@ const RankItem = ({
         {rank.isLoadData ? (
           <SkeletonBar rowNum={15} />
         ) : (
-          <div className="h-[415px] pr-4 w-full flex flex-col gap-3 overflow-hidden hover:overflow-y-auto">
+          <div className="h-[350px] pr-4 w-full flex flex-col gap-3 overflow-hidden hover:overflow-y-auto">
             {rank.data.map((item, index) => (
               <div
                 key={`item_${item.id}`}

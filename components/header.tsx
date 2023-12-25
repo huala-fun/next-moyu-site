@@ -88,7 +88,7 @@ export default function Header() {
   return (
     <nav
       className={cn(
-        "flex justify-between items-center border-slate-100 p-4  bg-[hsl(var(--card))] bg-opacity-80 sticky top-0 z-[9998]",
+        "flex justify-between items-center border-slate-100 p-4  px-20  bg-[hsl(var(--card))] bg-opacity-80 sticky top-0 z-[9998]",
         scrollInfo.y > 64 ? "shadow-md" : " border-b dark:border-none"
       )}>
       <Link href={"/"} className="flex gap-2 cursor-pointer pl-2">

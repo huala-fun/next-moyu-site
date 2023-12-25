@@ -41,6 +41,9 @@ dependencies:
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
+  hover.css:
+    specifier: ^2.3.2
+    version: 2.3.2
   immer:
     specifier: ^10.0.3
     version: 10.0.3
@@ -3535,6 +3538,10 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       function-bind: 1.1.2
+
+  /hover.css@2.3.2:
+    resolution: {integrity: sha512-eXch700vfcoSSAcEcU154lTHBYQy2cjGT+yJZtkKWxASBBiPVkqYOdMAa0sz4cYj2YIrl1FRE2s5O4EgOaIpig==}
+    dev: false
 
   /htmlparser2@8.0.2:
     resolution: {integrity: sha512-GYdjWKDkbRLkZ5geuHs5NY1puJ+PXwP7+fHPRz06Eirsb9ugf6d8kkXav6ADhcODhFFPMIXyxkxSuMf3D6NCFA==}

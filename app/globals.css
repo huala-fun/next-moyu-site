@@ -27,7 +27,7 @@
   }
 
   .dark {
-    --background: 20 14.3% 4.1%;
+    --background: rgb(16, 16, 20);
     --foreground: 0 0% 95%;
     --card: 24 9.8% 10%;
     --card-foreground: 0 0% 95%;
@@ -174,20 +174,18 @@ body {
   }
 }
 
-
-
 .w-f-c-i-size {
   animation: wooden-fish-size 0.3s;
 }
 
 @keyframes wooden-fish-size {
-0% {
-  transform: scale(1);
-}
-50% {
-  transform: scale(0.9);
-}
-100% {
-  transform: scale(1);
-}
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
